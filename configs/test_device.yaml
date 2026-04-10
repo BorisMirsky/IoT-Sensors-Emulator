@@ -1,0 +1,22 @@
+devices:
+  - id: test_sensor_1
+    mqtt:
+      broker: localhost:1883
+      telemetry_topic: "test/device1/sensors"
+    sensors:
+      - type: temperature
+        initial: 22.5
+        noise_std: 0.3
+      - type: humidity
+        initial: 55.0
+        noise_std: 2.0
+    publish_interval: 5.0
+
+  - id: test_sensor_2
+    mqtt:
+      telemetry_topic: "test/device2/sensors"
+    sensors:
+      - type: binary
+        name: motion
+        initial: 0
+    publish_interval: 2.0

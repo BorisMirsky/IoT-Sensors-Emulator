@@ -5,6 +5,8 @@ description = "Эмулятор IoT-устройств с MQTT и симуляц
 authors = [{ name = "Your Name", email = "your@email.com" }]
 dependencies = [
     "typer>=0.9.0",
+    "pyyaml>=6.0",
+    "pydantic>=2.0.0",
 ]
 
 [project.scripts]

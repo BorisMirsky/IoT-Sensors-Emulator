@@ -1,0 +1,2 @@
+[console_scripts]
+iot-emulator = iot_emulator.cli.app:main
