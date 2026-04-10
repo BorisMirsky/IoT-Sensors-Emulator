@@ -1,0 +1,15 @@
+[project]
+name = "iot-emulator"
+version = "0.1.0"
+description = "Эмулятор IoT-устройств с MQTT и симуляцией датчиков"
+authors = [{ name = "Your Name", email = "your@email.com" }]
+dependencies = [
+    "typer>=0.9.0",
+]
+
+[project.scripts]
+iot-emulator = "iot_emulator.cli.app:main"
+
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
