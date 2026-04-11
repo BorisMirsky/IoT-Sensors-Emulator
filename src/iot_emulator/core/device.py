@@ -6,6 +6,11 @@ from datetime import datetime
 from iot_emulator.utils.config_loader import DeviceConfig
 from iot_emulator.time_simulation import get_simulated_sleep
 
+from typing import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from iot_emulator.mqtt.client import MQTTClient
+    
 logger = logging.getLogger(__name__)
 
 
@@ -15,28 +20,53 @@ class Device:
     Пока без MQTT — просто выводит данные в консоль.
     """
 
-    def __init__(self, config: DeviceConfig):
+    def __init__(self, config: DeviceConfig, mqtt_client: Optional['MQTTClient'] = None):
         self.config = config
         self.id = config.id
         self._is_running = False
         self._task: Optional[asyncio.Task] = None
         self._simulated_sleep = get_simulated_sleep()
         
-        # Состояние датчиков (пока просто заглушка)
+        # MQTT клиент
+        self._mqtt_client = mqtt_client
+        
+        # Состояние датчиков
         self._sensor_values: Dict[str, float] = {}
         for sensor in config.sensors:
             self._sensor_values[sensor.type] = sensor.initial
         
         self._message_count = 0
 
+
+
     async def _publish_telemetry(self) -> None:
         """
-        Публикация телеметрии.
-        Пока только print, позже заменим на реальный MQTT.
+        Публикация телеметрии через MQTT или print (если MQTT не доступен).
         """
-        timestamp = datetime.now().strftime("%H:%M:%S.%f")[:-3]
-        print(f"[{timestamp}] [{self.id}] TELEMETRY: {self._sensor_values}")
-        self._message_count += 1
+        import json
+        
+        # Формируем payload
+        payload = json.dumps({
+            "device_id": self.id,
+            "timestamp": self._simulated_sleep._simulated_time.get_current_time(),
+            "sensors": self._sensor_values
+        })
+        
+        topic = self.config.mqtt.telemetry_topic
+        
+        if self._mqtt_client and self._mqtt_client.is_connected():
+            # Публикуем через MQTT
+            success = await self._mqtt_client.publish(topic, payload, qos=self.config.mqtt.qos)
+            if success:
+                self._message_count += 1
+                logger.debug(f"[{self.id}] Published to MQTT: {topic}")
+            else:
+                logger.warning(f"[{self.id}] MQTT publish failed")
+        else:
+            # Fallback на print (для тестирования без MQTT брокера)
+            timestamp_str = __import__('datetime').datetime.now().strftime("%H:%M:%S.%f")[:-3]
+            print(f"[{timestamp_str}] [{self.id}] TELEMETRY: {self._sensor_values}")
+            self._message_count += 1
 
     async def _update_sensors(self) -> None:
         """

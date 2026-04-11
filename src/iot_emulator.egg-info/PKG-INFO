@@ -6,3 +6,4 @@ Author-email: Your Name <your@email.com>
 Requires-Dist: typer>=0.9.0
 Requires-Dist: pyyaml>=6.0
 Requires-Dist: pydantic>=2.0.0
+Requires-Dist: paho-mqtt>=1.6.0

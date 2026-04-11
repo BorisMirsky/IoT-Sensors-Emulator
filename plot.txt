@@ -1,0 +1,147 @@
+iot-device-emulator/
+│
+├── README.md
+├── pyproject.toml                # Зависимости, метаданные, инструменты (black, ruff, mypy)
+├── requirements.txt              # или poetry.lock / uv.lock
+├── .env.example                  # Пример переменных окружения
+├── .gitignore
+│
+├── configs/
+│   ├── default.yaml              # Конфигурация по умолчанию (логгирование, лимиты)
+│   ├── devices/                  # Сценарии и конфиги отдельных устройств
+│   │   ├── living_room.yaml
+│   │   ├── garage.yaml
+│   │   └── production_50_devices.yaml
+│   └── behaviors/                # Пользовательские скрипты поведения (Python или DSL)
+│       ├── thermostat.py
+│       ├── garage_door.py
+│       └── simple_temperature.lua   # если поддерживается Lua
+│
+├── src/
+│   └── iot_emulator/             # Основной пакет
+│       │
+│       ├── __init__.py
+│       ├── __main__.py           # Точка входа: python -m iot_emulator
+│       │
+│       ├── cli/
+│       │   ├── __init__.py
+│       │   ├── app.py            # Typer/Click приложение (регистрация команд)
+│       │   ├── commands/
+│       │   │   ├── start.py
+│       │   │   ├── stop.py
+│       │   │   ├── list.py
+│       │   │   ├── inject_error.py
+│       │   │   ├── replay.py
+│       │   │   └── stats.py
+│       │   └── output.py         # Rich/простое форматирование вывода
+│       │
+│       ├── core/
+│       │   ├── __init__.py
+│       │   ├── orchestrator.py   # DeviceOrchestrator (менеджер устройств)
+│       │   ├── device.py         # Класс Device (асинхронная корутина устройства)
+│       │   ├── device_factory.py # Создание устройств из конфига
+│       │   └── types.py          # Общие типы/датаклассы (DeviceStatus, ErrorType)
+│       │
+│       ├── sensors/
+│       │   ├── __init__.py
+│       │   ├── base.py           # Абстрактный класс Sensor
+│       │   ├── temperature.py
+│       │   ├── humidity.py
+│       │   ├── binary.py
+│       │   ├── counter.py
+│       │   ├── registry.py       # Реестр доступных типов датчиков
+│       │   └── noise.py          # Генераторы шума (normal, uniform, random_walk)
+│       │
+│       ├── behavior/
+│       │   ├── __init__.py
+│       │   ├── executor.py       # Исполняет сценарий (Python/lua/JSON)
+│       │   ├── sandbox.py        # Ограниченное окружение для Python-скриптов
+│       │   ├── dsl_parser.py     # Парсер JSON-правил (если выбран безопасный DSL)
+│       │   └── builtins/         # Встроенные функции для сценариев
+│       │       ├── math.py
+│       │       └── mqtt_helpers.py
+│       │
+│       ├── mqtt/
+│       │   ├── __init__.py
+│       │   ├── client.py         # Обёртка над paho-mqtt/asyncio-mqtt
+│       │   ├── client_pool.py    # Управление пулом клиентов (если нужно переиспользование)
+│       │   ├── topics.py         # Генерация топиков, форматирование payload
+│       │   └── lwt.py            # Last Will and Testament сообщения
+│       │
+│       ├── time_simulation/
+│       │   ├── __init__.py
+│       │   ├── simulated_time.py # SimulatedTime (глобальный контроллер времени)
+│       │   ├── sleep.py          # Асинхронный sleep с учётом коэф. ускорения
+│       │   └── scheduler.py      # Планировщик задач в симулированном времени
+│       │
+│       ├── logging/
+│       │   ├── __init__.py
+│       │   ├── logger.py         # Настройка structlog/loguru
+│       │   ├── telemetry_logger.py # Запись сообщений в файл для replay
+│       │   └── stats_collector.py # Сбор метрик (сообщений/сек, ошибок)
+│       │
+│       ├── errors/
+│       │   ├── __init__.py
+│       │   ├── injector.py       # Инъекция ошибок (потеря пакетов, задержки)
+│       │   ├── strategies/       # Разные стратегии ошибок
+│       │   │   ├── packet_loss.py
+│       │   │   ├── latency.py
+│       │   │   └── disconnect.py
+│       │   └── chaos.py          # Генератор случайных ошибок (Chaos Monkey)
+│       │
+│       ├── replay/
+│       │   ├── __init__.py
+│       │   ├── reader.py         # Чтение лог-файла с сообщениями
+│       │   ├── player.py         # Воспроизведение с оригинальными интервалами
+│       │   └── comparator.py     # Сравнение двух логов (для регрессионных тестов)
+│       │
+│       └── utils/
+│           ├── __init__.py
+│           ├── config_loader.py  # Загрузка YAML с валидацией (pydantic)
+│           ├── validators.py     # Валидация ID устройств, топиков
+│           ├── exceptions.py     # Кастомные исключения
+│           └── helpers.py        # Утилиты (форматирование, конвертация)
+│
+├── tests/
+│   ├── __init__.py
+│   ├── conftest.py               # Фикстуры (mock MQTT брокер, temp configs)
+│   │
+│   ├── unit/
+│   │   ├── test_sensors.py
+│   │   ├── test_behavior_executor.py
+│   │   ├── test_simulated_time.py
+│   │   ├── test_mqtt_client.py
+│   │   └── test_error_injector.py
+│   │
+│   ├── integration/
+│   │   ├── test_orchestrator_with_mock_broker.py
+│   │   ├── test_device_lifecycle.py
+│   │   ├── test_replay.py
+│   │   └── test_config_loading.py
+│   │
+│   ├── fixtures/
+│   │   ├── sample_config.yaml
+│   │   ├── test_behavior.py
+│   │   └── telemetry_sample.log
+│   │
+│   └── performance/
+│       ├── test_1000_devices.py
+│       └── test_memory_usage.py
+│
+├── scripts/
+│   ├── generate_devices.py       # Генератор конфигов для N устройств
+│   ├── benchmark_broker.sh       # Скрипт для нагрузочного тестирования брокера
+│   └── docker/
+│       ├── Dockerfile            # Контейнеризация эмулятора
+│       └── docker-compose.yml    # Эмулятор + mosquitto + grafana (опционально)
+│
+├── docs/
+│   ├── architecture.md
+│   ├── configuration.md
+│   ├── behavior_dsl.md           # Документация по написанию сценариев
+│   └── examples/
+│       └── demo_walkthrough.md
+│
+└── logs/                         # Игнорируется git (создаётся при запуске)
+    ├── telemetry_2025-01-15.log  # Файлы для replay
+    └── emulator_errors.log
