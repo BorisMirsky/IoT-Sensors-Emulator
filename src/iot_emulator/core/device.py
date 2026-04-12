@@ -1,12 +1,12 @@
 import asyncio
 import logging
 from typing import Dict, Any, Optional
+from typing import TYPE_CHECKING
 from datetime import datetime
-
 from iot_emulator.utils.config_loader import DeviceConfig
 from iot_emulator.time_simulation import get_simulated_sleep
+from iot_emulator.sensors import SensorRegistry
 
-from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
     from iot_emulator.mqtt.client import MQTTClient
@@ -30,13 +30,20 @@ class Device:
         # MQTT клиент
         self._mqtt_client = mqtt_client
         
-        # Состояние датчиков
-        self._sensor_values: Dict[str, float] = {}
-        for sensor in config.sensors:
-            self._sensor_values[sensor.type] = sensor.initial
+        # Создаём реальные датчики из конфигурации
+        self._sensors = []
+        self._last_update_time: Optional[float] = None
+        
+        for sensor_cfg in config.sensors:
+            sensor = SensorRegistry.create(
+                sensor_cfg.type,
+                name=sensor_cfg.type,
+                initial_value=sensor_cfg.initial,
+                noise_std=sensor_cfg.noise_std
+            )
+            self._sensors.append(sensor)
         
         self._message_count = 0
-
 
 
     async def _publish_telemetry(self) -> None:
@@ -68,14 +75,35 @@ class Device:
             print(f"[{timestamp_str}] [{self.id}] TELEMETRY: {self._sensor_values}")
             self._message_count += 1
 
+
     async def _update_sensors(self) -> None:
         """
-        Обновление показаний датчиков.
-        Пока просто заглушка — симуляции нет.
-        TODO: пункт 6 добавит реальную логику с шумом и трендами.
+        Обновление показаний всех датчиков.
         """
-        # Пока оставляем значения неизменными
-        pass
+        from iot_emulator.time_simulation import get_simulated_time
+        
+        st = get_simulated_time()
+        current_time = st.get_current_time()
+        
+        if self._last_update_time is None:
+            self._last_update_time = current_time
+            return
+        
+        delta_time = current_time - self._last_update_time
+        self._last_update_time = current_time
+        
+        # Собираем значения всех датчиков для контекста (корреляции)
+        context = {}
+        for sensor in self._sensors:
+            context[sensor.name] = sensor.get_value()
+        
+        # Обновляем каждый датчик
+        for sensor in self._sensors:
+            await sensor.update(delta_time, context=context)
+        
+        # Обновляем словарь _sensor_values для совместимости с _publish_telemetry
+        self._sensor_values = {sensor.name: sensor.get_value() for sensor in self._sensors}
+
 
     async def _run_loop(self) -> None:
         """
