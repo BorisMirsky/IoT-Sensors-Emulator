@@ -141,22 +141,37 @@ class Device:
         self._task = asyncio.create_task(self._run_loop())
         logger.info(f"Device {self.id} task created")
 
-    async def stop(self) -> None:
-        """Остановить устройство (graceful shutdown)"""
+
+    async def stop(self, timeout: float = 5.0) -> None:
+        """
+        Остановить устройство (graceful shutdown).
+        
+        Args:
+            timeout: Максимальное время ожидания завершения текущей итерации
+        """
         if not self._is_running:
             logger.warning(f"Device {self.id} not running")
             return
         
+        logger.info(f"Stopping device {self.id}...")
         self._is_running = False
         
         if self._task and not self._task.done():
-            self._task.cancel()
             try:
-                await self._task
+                # Ждём завершения с таймаутом
+                await asyncio.wait_for(self._task, timeout=timeout)
+            except asyncio.TimeoutError:
+                logger.warning(f"Device {self.id} did not stop gracefully, cancelling...")
+                self._task.cancel()
+                try:
+                    await self._task
+                except asyncio.CancelledError:
+                    pass
             except asyncio.CancelledError:
                 pass
         
         logger.info(f"Device {self.id} stopped. Published {self._message_count} messages")
+
 
     def get_stats(self) -> Dict[str, Any]:
         """Получить статистику устройства"""

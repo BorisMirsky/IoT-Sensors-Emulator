@@ -1,6 +1,8 @@
 import asyncio
 import typer
 from typing import Optional
+import signal
+import logging
 
 from iot_emulator.utils.config_loader import ConfigLoader
 from iot_emulator.core.orchestrator import DeviceOrchestrator
@@ -10,6 +12,14 @@ app = typer.Typer(
     help="Эмулятор IoT-устройств с MQTT и симуляцией датчиков",
     add_completion=False,
 )
+
+# Настройка логирования
+logging.basicConfig(
+    level=logging.INFO,
+    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
+    datefmt='%H:%M:%S'
+)
+
 
 # Глобальный оркестратор (будет инициализирован при старте)
 _orchestrator: Optional[DeviceOrchestrator] = None
@@ -57,17 +67,43 @@ async def _run_emulator(speed: float):
     """Внутренняя асинхронная функция запуска эмулятора"""
     global _orchestrator
     
+    # Настройка обработки сигналов для graceful shutdown
+    loop = asyncio.get_running_loop()
+    
+    # Для Windows: SignalHandler работает иначе, используем флаг
+    shutdown_requested = False
+    
+    def signal_handler():
+        nonlocal shutdown_requested
+        if not shutdown_requested:
+            shutdown_requested = True
+            typer.echo("\n⏹️  Получен сигнал остановки...")
+            asyncio.create_task(_shutdown())
+    
+    async def _shutdown():
+        await _orchestrator.stop_all(graceful=True)
+        loop.stop()
+    
+    # Регистрируем обработчики сигналов (Unix)
+    try:
+        loop.add_signal_handler(signal.SIGINT, signal_handler)
+        loop.add_signal_handler(signal.SIGTERM, signal_handler)
+    except NotImplementedError:
+        # Windows не поддерживает add_signal_handler
+        # Используем простой флаг
+        pass
+    
     await _orchestrator.start_all(speed_factor=speed)
     
     # Бесконечный цикл, пока не нажмут Ctrl+C
     try:
-        while True:
-            await asyncio.sleep(0.1)  # Маленький sleep для быстрой реакции на сигналы
+        while not shutdown_requested:
+            await asyncio.sleep(0.5)
     except asyncio.CancelledError:
-        typer.echo("\n⏹️  Получен сигнал остановки...")
-        raise
+        pass
     finally:
-        await _orchestrator.stop_all()
+        if not shutdown_requested:
+            await _orchestrator.stop_all(graceful=True)
 
 
 @app.command()
