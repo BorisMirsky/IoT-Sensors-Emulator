@@ -1,0 +1,31 @@
+{
+    "rules": [
+        {
+            "type": "set_target",
+            "condition": {"simulated_time": "> 0"},
+            "action": {"sensor": "temperature", "value": 22.0}
+        },
+        {
+            "type": "set_target",
+            "condition": {"simulated_time": "> 30"},
+            "action": {"sensor": "temperature", "value": 25.0}
+        },
+        {
+            "type": "set_target",
+            "condition": {"simulated_time": "> 60"},
+            "action": {"sensor": "temperature", "value": 28.0}
+        },
+        {
+            "type": "set_target",
+            "condition": {"simulated_time": "> 90"},
+            "action": {"sensor": "temperature", "value": 22.0}
+        },
+        {
+            "type": "publish_alert",
+            "condition": {"sensor": {"sensor": "temperature", "operator": ">", "value": 27}},
+            "action": {"message": "High temperature warning!"}
+        }
+    ]
+}
+
+

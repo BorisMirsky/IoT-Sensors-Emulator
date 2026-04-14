@@ -10,6 +10,7 @@ devices:
       - type: humidity
         initial: 55.0
         noise_std: 2.0
+    behavior_script: "configs/behaviors/temperature_cycle.json"
     publish_interval: 5.0
 
   - id: test_sensor_2
