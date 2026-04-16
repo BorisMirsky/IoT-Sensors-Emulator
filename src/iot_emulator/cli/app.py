@@ -161,11 +161,49 @@ def list_devices():
 def inject_error(
     device_id: str = typer.Argument(..., help="ID устройства или 'all'"),
     error_type: str = typer.Option(..., "--error", "-e", help="packet_loss | latency | disconnect"),
-    rate: float = typer.Option(0.1, "--rate", "-r", help="Вероятность/интенсивность ошибки (0..1)"),
+    rate: float = typer.Option(0.1, "--rate", "-r", help="Вероятность ошибки (0..1)"),
+    duration: float = typer.Option(5.0, "--duration", "-d", help="Длительность отключения (сек)"),
+    min_delay: float = typer.Option(0.5, "--min-delay", help="Мин. задержка (сек)"),
+    max_delay: float = typer.Option(3.0, "--max-delay", help="Макс. задержка (сек)"),
+    remove: bool = typer.Option(False, "--remove", help="Удалить ошибку, а не добавлять"),
 ):
     """Инъекция ошибки в работу устройства"""
-    typer.echo(f"⚠️ Инъекция ошибок будет реализована в пункте 9")
-    typer.echo(f"   device={device_id}, error={error_type}, rate={rate}")
+    global _orchestrator
+    
+    if _orchestrator is None:
+        typer.echo("Эмулятор не запущен", err=True)
+        raise typer.Exit(code=1)
+    
+    async def _inject():
+        if device_id == "all":
+            devices = _orchestrator.get_active_device_ids()
+            if not devices:
+                typer.echo("Нет активных устройств", err=True)
+                return
+            for dev_id in devices:
+                device = _orchestrator._devices.get(dev_id)
+                if device:
+                    if remove:
+                        device.remove_error(error_type)
+                        typer.echo(f"Удалена ошибка {error_type} с устройства {dev_id}")
+                    else:
+                        device.add_error(error_type, rate=rate, duration=duration, 
+                                        min_delay=min_delay, max_delay=max_delay)
+                        typer.echo(f"Добавлена ошибка {error_type} (rate={rate}) на устройство {dev_id}")
+        else:
+            device = _orchestrator._devices.get(device_id)
+            if not device:
+                typer.echo(f"Устройство {device_id} не найдено", err=True)
+                return
+            if remove:
+                device.remove_error(error_type)
+                typer.echo(f"Удалена ошибка {error_type} с устройства {device_id}")
+            else:
+                device.add_error(error_type, rate=rate, duration=duration,
+                                min_delay=min_delay, max_delay=max_delay)
+                typer.echo(f"Добавлена ошибка {error_type} (rate={rate}) на устройство {device_id}")
+    
+    asyncio.run(_inject())
 
 
 @app.command()

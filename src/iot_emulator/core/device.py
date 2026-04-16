@@ -7,7 +7,7 @@ from iot_emulator.utils.config_loader import DeviceConfig
 from iot_emulator.time_simulation import get_simulated_sleep
 from iot_emulator.sensors import SensorRegistry
 from iot_emulator.behavior import BehaviorScript, load_behavior_from_file
-
+from iot_emulator.errors import ErrorInjector, ErrorType
 
 
 
@@ -28,8 +28,7 @@ class Device:
         self.id = config.id
         self._is_running = False
         self._task: Optional[asyncio.Task] = None
-        self._simulated_sleep = get_simulated_sleep()
-        
+        self._simulated_sleep = get_simulated_sleep()        
         # MQTT клиент
         self._mqtt_client = mqtt_client
         
@@ -57,9 +56,43 @@ class Device:
         
         self._message_count = 0
         self._last_command: Optional[str] = None
+                # Инжектор ошибок
+        self._error_injector = ErrorInjector(self.id)
 
 
     async def _publish_telemetry(self) -> None:
+        """
+        Публикация телеметрии через MQTT или print.
+        С поддержкой инъекции ошибок.
+        """
+        import json
+        
+        # Формируем payload
+        payload = json.dumps({
+            "device_id": self.id,
+            "timestamp": self._simulated_sleep._simulated_time.get_current_time(),
+            "sensors": self._sensor_values
+        })
+        
+        topic = self.config.mqtt.telemetry_topic
+        
+        # Применяем инъекцию ошибок
+        can_publish = await self._error_injector.apply_before_publish(payload)
+        if not can_publish:
+            logger.debug(f"[{self.id}] Publish blocked by error injector")
+            return
+        
+        if self._mqtt_client and self._mqtt_client.is_connected():
+            success = await self._mqtt_client.publish(topic, payload, qos=self.config.mqtt.qos)
+            if success:
+                self._message_count += 1
+            else:
+                logger.warning(f"[{self.id}] MQTT publish failed")
+        else:
+            # Fallback на print
+            timestamp_str = __import__('datetime').datetime.now().strftime("%H:%M:%S.%f")[:-3]
+            print(f"[{timestamp_str}] [{self.id}] TELEMETRY: {self._sensor_values}")
+            self._message_count += 1
         """
         Публикация телеметрии через MQTT или print (если MQTT не доступен).
         """
@@ -246,6 +279,7 @@ class Device:
 
 
     async def handle_command(self, command: str, payload: Dict[str, Any]) -> None:
+
         """
         Обработать команду, полученную через MQTT.
         """
@@ -267,3 +301,38 @@ class Device:
             if new_interval:
                 self.config.publish_interval = float(new_interval)
                 logger.info(f"[{self.id}] Publish interval changed to {new_interval}s")
+
+
+    # методы для управления ошибками 
+    def add_error(self, error_type: str, **kwargs) -> None:
+        """Добавить ошибку устройству"""
+        if error_type == "packet_loss":
+            rate = kwargs.get("rate", 0.1)
+            self._error_injector.add_packet_loss(rate)
+        elif error_type == "latency":
+            min_delay = kwargs.get("min_delay", 0.5)
+            max_delay = kwargs.get("max_delay", 3.0)
+            rate = kwargs.get("rate", 1.0)
+            self._error_injector.add_latency(min_delay, max_delay, rate)
+        elif error_type == "disconnect":
+            duration = kwargs.get("duration", 5.0)
+            rate = kwargs.get("rate", 0.01)
+            self._error_injector.add_disconnect(duration, rate)
+        else:
+            logger.warning(f"Unknown error type: {error_type}")
+
+    def remove_error(self, error_type: str) -> None:
+        """Удалить ошибку"""
+        try:
+            error_enum = ErrorType(error_type)
+            self._error_injector.remove_error(error_enum)
+        except ValueError:
+            logger.warning(f"Unknown error type: {error_type}")
+
+    def remove_all_errors(self) -> None:
+        """Удалить все ошибки"""
+        self._error_injector.remove_all_errors()
+
+    def get_active_errors(self) -> list:
+        """Получить список активных ошибок"""
+        return self._error_injector.get_active_errors()
