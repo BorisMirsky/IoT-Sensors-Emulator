@@ -1,0 +1,175 @@
+{"timestamp": "2026-04-17T09:41:59.402244", "simulated_time": 400.7557200011797, "device_id": "test_sensor_1", "topic": "test/device1/sensors", "payload": {"sensors": {"temperature": 22.0, "humidity": 55.0}}}
+{"timestamp": "2026-04-17T09:41:59.503188", "simulated_time": 406.8135660002008, "device_id": "test_sensor_1", "topic": "test/device1/sensors", "payload": {"sensors": {"temperature": 22.0, "humidity": 55.0}}}
+{"timestamp": "2026-04-17T09:41:59.599256", "simulated_time": 412.5777839985676, "device_id": "test_sensor_1", "topic": "test/device1/sensors", "payload": {"sensors": {"temperature": 22.0, "humidity": 55.0}}}
+{"timestamp": "2026-04-17T09:41:59.701933", "simulated_time": 418.738368001068, "device_id": "test_sensor_1", "topic": "test/device1/sensors", "payload": {"sensors": {"temperature": 22.0, "humidity": 55.0}}}
+{"timestamp": "2026-04-17T09:41:59.802824", "simulated_time": 424.7932559985202, "device_id": "test_sensor_1", "topic": "test/device1/sensors", "payload": {"sensors": {"temperature": 22.0, "humidity": 55.0}}}
+{"timestamp": "2026-04-17T09:41:59.903500", "simulated_time": 430.8327540010214, "device_id": "test_sensor_1", "topic": "test/device1/sensors", "payload": {"sensors": {"temperature": 22.0, "humidity": 55.0}}}
+{"timestamp": "2026-04-17T09:42:00.013999", "simulated_time": 437.46228599804454, "device_id": "test_sensor_1", "topic": "test/device1/sensors", "payload": {"sensors": {"temperature": 22.0, "humidity": 55.0}}}
+{"timestamp": "2026-04-17T09:42:00.133747", "simulated_time": 444.6493440004997, "device_id": "test_sensor_1", "topic": "test/device1/sensors", "payload": {"sensors": {"temperature": 22.0, "humidity": 55.0}}}
+{"timestamp": "2026-04-17T09:42:00.233717", "simulated_time": 450.63959399820305, "device_id": "test_sensor_1", "topic": "test/device1/sensors", "payload": {"sensors": {"temperature": 22.0, "humidity": 55.0}}}
+{"timestamp": "2026-04-17T09:42:00.336537", "simulated_time": 456.81362399831414, "device_id": "test_sensor_1", "topic": "test/device1/sensors", "payload": {"sensors": {"temperature": 22.0, "humidity": 55.0}}}
+{"timestamp": "2026-04-17T09:42:00.436251", "simulated_time": 462.7988279995043, "device_id": "test_sensor_1", "topic": "test/device1/sensors", "payload": {"sensors": {"temperature": 22.0, "humidity": 55.0}}}
+{"timestamp": "2026-04-17T09:42:00.535831", "simulated_time": 468.77250600024126, "device_id": "test_sensor_1", "topic": "test/device1/sensors", "payload": {"sensors": {"temperature": 22.0, "humidity": 55.0}}}
+{"timestamp": "2026-04-17T09:42:00.637681", "simulated_time": 474.8834159981925, "device_id": "test_sensor_1", "topic": "test/device1/sensors", "payload": {"sensors": {"temperature": 22.0, "humidity": 55.0}}}
+{"timestamp": "2026-04-17T09:42:00.736666", "simulated_time": 480.82390800118446, "device_id": "test_sensor_1", "topic": "test/device1/sensors", "payload": {"sensors": {"temperature": 22.0, "humidity": 55.0}}}
+{"timestamp": "2026-04-17T09:42:00.836035", "simulated_time": 486.7847699986305, "device_id": "test_sensor_1", "topic": "test/device1/sensors", "payload": {"sensors": {"temperature": 22.0, "humidity": 55.0}}}
+{"timestamp": "2026-04-17T09:42:00.938385", "simulated_time": 492.9258599993773, "device_id": "test_sensor_1", "topic": "test/device1/sensors", "payload": {"sensors": {"temperature": 22.0, "humidity": 55.0}}}
+{"timestamp": "2026-04-17T09:42:01.035814", "simulated_time": 498.7710959999822, "device_id": "test_sensor_1", "topic": "test/device1/sensors", "payload": {"sensors": {"temperature": 22.0, "humidity": 55.0}}}
+{"timestamp": "2026-04-17T09:42:01.136774", "simulated_time": 504.82872000080533, "device_id": "test_sensor_1", "topic": "test/device1/sensors", "payload": {"sensors": {"temperature": 22.0, "humidity": 55.0}}}
+{"timestamp": "2026-04-17T09:42:01.235782", "simulated_time": 510.77185199945234, "device_id": "test_sensor_1", "topic": "test/device1/sensors", "payload": {"sensors": {"temperature": 22.0, "humidity": 55.0}}}
+{"timestamp": "2026-04-17T09:42:01.336946", "simulated_time": 516.8392979982309, "device_id": "test_sensor_1", "topic": "test/device1/sensors", "payload": {"sensors": {"temperature": 22.0, "humidity": 55.0}}}
+{"timestamp": "2026-04-17T09:42:01.437222", "simulated_time": 522.8556419990491, "device_id": "test_sensor_1", "topic": "test/device1/sensors", "payload": {"sensors": {"temperature": 22.0, "humidity": 55.0}}}
+{"timestamp": "2026-04-17T09:42:01.538509", "simulated_time": 528.9332819986157, "device_id": "test_sensor_1", "topic": "test/device1/sensors", "payload": {"sensors": {"temperature": 22.0, "humidity": 55.0}}}
+{"timestamp": "2026-04-17T09:42:01.637506", "simulated_time": 534.8728079977445, "device_id": "test_sensor_1", "topic": "test/device1/sensors", "payload": {"sensors": {"temperature": 22.0, "humidity": 55.0}}}
+{"timestamp": "2026-04-17T09:42:01.733503", "simulated_time": 540.6344460009132, "device_id": "test_sensor_1", "topic": "test/device1/sensors", "payload": {"sensors": {"temperature": 22.0, "humidity": 55.0}}}
+{"timestamp": "2026-04-17T09:42:01.820598", "simulated_time": 545.8597079990432, "device_id": "test_sensor_1", "topic": "test/device1/sensors", "payload": {"sensors": {"temperature": 22.0, "humidity": 55.0}}}
+{"timestamp": "2026-04-17T09:42:01.921919", "simulated_time": 551.9377979985438, "device_id": "test_sensor_1", "topic": "test/device1/sensors", "payload": {"sensors": {"temperature": 22.0, "humidity": 55.0}}}
+{"timestamp": "2026-04-17T09:42:02.021134", "simulated_time": 557.89159199805, "device_id": "test_sensor_1", "topic": "test/device1/sensors", "payload": {"sensors": {"temperature": 22.0, "humidity": 55.0}}}
+{"timestamp": "2026-04-17T09:42:02.119457", "simulated_time": 563.7921660009306, "device_id": "test_sensor_1", "topic": "test/device1/sensors", "payload": {"sensors": {"temperature": 22.0, "humidity": 55.0}}}
+{"timestamp": "2026-04-17T09:42:02.219940", "simulated_time": 569.8189620010089, "device_id": "test_sensor_1", "topic": "test/device1/sensors", "payload": {"sensors": {"temperature": 22.0, "humidity": 55.0}}}
+{"timestamp": "2026-04-17T09:42:02.320640", "simulated_time": 575.8615499990992, "device_id": "test_sensor_1", "topic": "test/device1/sensors", "payload": {"sensors": {"temperature": 22.0, "humidity": 55.0}}}
+{"timestamp": "2026-04-17T09:42:02.420446", "simulated_time": 581.8493819993455, "device_id": "test_sensor_1", "topic": "test/device1/sensors", "payload": {"sensors": {"temperature": 22.0, "humidity": 55.0}}}
+{"timestamp": "2026-04-17T09:42:02.520578", "simulated_time": 587.8568519989494, "device_id": "test_sensor_1", "topic": "test/device1/sensors", "payload": {"sensors": {"temperature": 22.0, "humidity": 55.0}}}
+{"timestamp": "2026-04-17T09:42:02.620597", "simulated_time": 593.8580579997506, "device_id": "test_sensor_1", "topic": "test/device1/sensors", "payload": {"sensors": {"temperature": 22.0, "humidity": 55.0}}}
+{"timestamp": "2026-04-17T09:42:02.720093", "simulated_time": 599.8281420010608, "device_id": "test_sensor_1", "topic": "test/device1/sensors", "payload": {"sensors": {"temperature": 22.0, "humidity": 55.0}}}
+{"timestamp": "2026-04-17T09:42:02.819862", "simulated_time": 605.8160459983628, "device_id": "test_sensor_1", "topic": "test/device1/sensors", "payload": {"sensors": {"temperature": 22.0, "humidity": 55.0}}}
+{"timestamp": "2026-04-17T09:42:02.921566", "simulated_time": 611.9158379989676, "device_id": "test_sensor_1", "topic": "test/device1/sensors", "payload": {"sensors": {"temperature": 22.0, "humidity": 55.0}}}
+{"timestamp": "2026-04-17T09:42:03.021644", "simulated_time": 617.9219759989064, "device_id": "test_sensor_1", "topic": "test/device1/sensors", "payload": {"sensors": {"temperature": 22.0, "humidity": 55.0}}}
+{"timestamp": "2026-04-17T09:42:03.121370", "simulated_time": 623.9020379993599, "device_id": "test_sensor_1", "topic": "test/device1/sensors", "payload": {"sensors": {"temperature": 22.0, "humidity": 55.0}}}
+{"timestamp": "2026-04-17T09:42:03.220928", "simulated_time": 629.8787819989957, "device_id": "test_sensor_1", "topic": "test/device1/sensors", "payload": {"sensors": {"temperature": 22.0, "humidity": 55.0}}}
+{"timestamp": "2026-04-17T09:42:03.325473", "simulated_time": 636.1507380008698, "device_id": "test_sensor_1", "topic": "test/device1/sensors", "payload": {"sensors": {"temperature": 22.0, "humidity": 55.0}}}
+{"timestamp": "2026-04-17T09:42:03.417151", "simulated_time": 641.6539739992004, "device_id": "test_sensor_1", "topic": "test/device1/sensors", "payload": {"sensors": {"temperature": 22.0, "humidity": 55.0}}}
+{"timestamp": "2026-04-17T09:42:03.507040", "simulated_time": 647.0461380004417, "device_id": "test_sensor_1", "topic": "test/device1/sensors", "payload": {"sensors": {"temperature": 22.0, "humidity": 55.0}}}
+{"timestamp": "2026-04-17T09:42:03.608620", "simulated_time": 653.139882000396, "device_id": "test_sensor_1", "topic": "test/device1/sensors", "payload": {"sensors": {"temperature": 22.0, "humidity": 55.0}}}
+{"timestamp": "2026-04-17T09:42:03.706670", "simulated_time": 659.0217180002946, "device_id": "test_sensor_1", "topic": "test/device1/sensors", "payload": {"sensors": {"temperature": 22.0, "humidity": 55.0}}}
+{"timestamp": "2026-04-17T09:42:03.806820", "simulated_time": 665.0318399991374, "device_id": "test_sensor_1", "topic": "test/device1/sensors", "payload": {"sensors": {"temperature": 22.0, "humidity": 55.0}}}
+{"timestamp": "2026-04-17T09:42:03.907756", "simulated_time": 671.0886960010976, "device_id": "test_sensor_1", "topic": "test/device1/sensors", "payload": {"sensors": {"temperature": 22.0, "humidity": 55.0}}}
+{"timestamp": "2026-04-17T09:42:04.005203", "simulated_time": 676.9320839981083, "device_id": "test_sensor_1", "topic": "test/device1/sensors", "payload": {"sensors": {"temperature": 22.0, "humidity": 55.0}}}
+{"timestamp": "2026-04-17T09:42:04.105138", "simulated_time": 682.9321500007063, "device_id": "test_sensor_1", "topic": "test/device1/sensors", "payload": {"sensors": {"temperature": 22.0, "humidity": 55.0}}}
+{"timestamp": "2026-04-17T09:42:04.205543", "simulated_time": 688.955117999576, "device_id": "test_sensor_1", "topic": "test/device1/sensors", "payload": {"sensors": {"temperature": 22.0, "humidity": 55.0}}}
+{"timestamp": "2026-04-17T09:42:04.306241", "simulated_time": 694.9970039993059, "device_id": "test_sensor_1", "topic": "test/device1/sensors", "payload": {"sensors": {"temperature": 22.0, "humidity": 55.0}}}
+{"timestamp": "2026-04-17T09:42:04.406312", "simulated_time": 701.0021459986456, "device_id": "test_sensor_1", "topic": "test/device1/sensors", "payload": {"sensors": {"temperature": 22.0, "humidity": 55.0}}}
+{"timestamp": "2026-04-17T09:42:04.505997", "simulated_time": 706.9840679992922, "device_id": "test_sensor_1", "topic": "test/device1/sensors", "payload": {"sensors": {"temperature": 22.0, "humidity": 55.0}}}
+{"timestamp": "2026-04-17T09:42:04.617067", "simulated_time": 713.6462280002888, "device_id": "test_sensor_1", "topic": "test/device1/sensors", "payload": {"sensors": {"temperature": 22.0, "humidity": 55.0}}}
+{"timestamp": "2026-04-17T09:42:04.670847", "simulated_time": 716.8754579988308, "device_id": "test_sensor_2", "topic": "test/device2/sensors", "payload": {"sensors": {"binary": 0.0}}}
+{"timestamp": "2026-04-17T09:42:04.706214", "simulated_time": 718.9977059990633, "device_id": "test_sensor_1", "topic": "test/device1/sensors", "payload": {"sensors": {"temperature": 22.0, "humidity": 55.0}}}
+{"timestamp": "2026-04-17T09:42:04.706685", "simulated_time": 719.0266019990668, "device_id": "test_sensor_2", "topic": "test/device2/sensors", "payload": {"sensors": {"binary": 0.0}}}
+{"timestamp": "2026-04-17T09:42:04.754699", "simulated_time": 721.9068959983997, "device_id": "test_sensor_2", "topic": "test/device2/sensors", "payload": {"sensors": {"binary": 0.0}}}
+{"timestamp": "2026-04-17T09:42:04.804250", "simulated_time": 724.8762419982813, "device_id": "test_sensor_2", "topic": "test/device2/sensors", "payload": {"sensors": {"binary": 0.0}}}
+{"timestamp": "2026-04-17T09:42:04.805499", "simulated_time": 724.9551239982247, "device_id": "test_sensor_1", "topic": "test/device1/sensors", "payload": {"sensors": {"temperature": 22.0, "humidity": 55.0}}}
+{"timestamp": "2026-04-17T09:42:04.838878", "simulated_time": 726.9573599996511, "device_id": "test_sensor_2", "topic": "test/device2/sensors", "payload": {"sensors": {"binary": 1.0}}}
+{"timestamp": "2026-04-17T09:42:04.888184", "simulated_time": 729.9128159985412, "device_id": "test_sensor_2", "topic": "test/device2/sensors", "payload": {"sensors": {"binary": 1.0}}}
+{"timestamp": "2026-04-17T09:42:04.907200", "simulated_time": 731.054531999398, "device_id": "test_sensor_1", "topic": "test/device1/sensors", "payload": {"sensors": {"temperature": 22.0, "humidity": 55.0}}}
+{"timestamp": "2026-04-17T09:42:04.924322", "simulated_time": 732.0815760002006, "device_id": "test_sensor_2", "topic": "test/device2/sensors", "payload": {"sensors": {"binary": 1.0}}}
+{"timestamp": "2026-04-17T09:42:04.960370", "simulated_time": 734.2444139986765, "device_id": "test_sensor_2", "topic": "test/device2/sensors", "payload": {"sensors": {"binary": 1.0}}}
+{"timestamp": "2026-04-17T09:42:04.995947", "simulated_time": 736.3779600011185, "device_id": "test_sensor_1", "topic": "test/device1/sensors", "payload": {"sensors": {"temperature": 22.0, "humidity": 55.0}}}
+{"timestamp": "2026-04-17T09:42:04.997010", "simulated_time": 736.4439900009893, "device_id": "test_sensor_2", "topic": "test/device2/sensors", "payload": {"sensors": {"binary": 1.0}}}
+{"timestamp": "2026-04-17T09:42:05.040601", "simulated_time": 739.0572419995442, "device_id": "test_sensor_2", "topic": "test/device2/sensors", "payload": {"sensors": {"binary": 1.0}}}
+{"timestamp": "2026-04-17T09:42:05.088826", "simulated_time": 741.9536579994019, "device_id": "test_sensor_2", "topic": "test/device2/sensors", "payload": {"sensors": {"binary": 1.0}}}
+{"timestamp": "2026-04-17T09:42:05.090731", "simulated_time": 742.068707998842, "device_id": "test_sensor_1", "topic": "test/device1/sensors", "payload": {"sensors": {"temperature": 22.0, "humidity": 55.0}}}
+{"timestamp": "2026-04-17T09:42:05.125405", "simulated_time": 744.146393998526, "device_id": "test_sensor_2", "topic": "test/device2/sensors", "payload": {"sensors": {"binary": 1.0}}}
+{"timestamp": "2026-04-17T09:42:05.173710", "simulated_time": 747.0465179986786, "device_id": "test_sensor_2", "topic": "test/device2/sensors", "payload": {"sensors": {"binary": 1.0}}}
+{"timestamp": "2026-04-17T09:42:05.190609", "simulated_time": 748.0605899984948, "device_id": "test_sensor_1", "topic": "test/device1/sensors", "payload": {"sensors": {"temperature": 22.0, "humidity": 55.0}}}
+{"timestamp": "2026-04-17T09:42:05.222510", "simulated_time": 749.9752680002712, "device_id": "test_sensor_2", "topic": "test/device2/sensors", "payload": {"sensors": {"binary": 1.0}}}
+{"timestamp": "2026-04-17T09:42:05.258916", "simulated_time": 752.1588119992521, "device_id": "test_sensor_2", "topic": "test/device2/sensors", "payload": {"sensors": {"binary": 1.0}}}
+{"timestamp": "2026-04-17T09:42:05.292273", "simulated_time": 754.1613659996074, "device_id": "test_sensor_1", "topic": "test/device1/sensors", "payload": {"sensors": {"temperature": 22.0, "humidity": 55.0}}}
+{"timestamp": "2026-04-17T09:42:05.308151", "simulated_time": 755.1128220011014, "device_id": "test_sensor_2", "topic": "test/device2/sensors", "payload": {"sensors": {"binary": 1.0}}}
+{"timestamp": "2026-04-17T09:42:05.355163", "simulated_time": 757.9346219985746, "device_id": "test_sensor_2", "topic": "test/device2/sensors", "payload": {"sensors": {"binary": 1.0}}}
+{"timestamp": "2026-04-17T09:42:05.391478", "simulated_time": 760.1129399996717, "device_id": "test_sensor_1", "topic": "test/device1/sensors", "payload": {"sensors": {"temperature": 22.0, "humidity": 55.0}}}
+{"timestamp": "2026-04-17T09:42:05.392102", "simulated_time": 760.1510099996813, "device_id": "test_sensor_2", "topic": "test/device2/sensors", "payload": {"sensors": {"binary": 1.0}}}
+{"timestamp": "2026-04-17T09:42:05.438664", "simulated_time": 762.9446939995978, "device_id": "test_sensor_2", "topic": "test/device2/sensors", "payload": {"sensors": {"binary": 1.0}}}
+{"timestamp": "2026-04-17T09:42:05.488812", "simulated_time": 765.9429239993915, "device_id": "test_sensor_2", "topic": "test/device2/sensors", "payload": {"sensors": {"binary": 1.0}}}
+{"timestamp": "2026-04-17T09:42:05.490649", "simulated_time": 766.0640219994821, "device_id": "test_sensor_1", "topic": "test/device1/sensors", "payload": {"sensors": {"temperature": 22.0, "humidity": 55.0}}}
+{"timestamp": "2026-04-17T09:42:05.523601", "simulated_time": 768.041153998347, "device_id": "test_sensor_2", "topic": "test/device2/sensors", "payload": {"sensors": {"binary": 1.0}}}
+{"timestamp": "2026-04-17T09:42:05.572005", "simulated_time": 770.9452200005762, "device_id": "test_sensor_2", "topic": "test/device2/sensors", "payload": {"sensors": {"binary": 1.0}}}
+{"timestamp": "2026-04-17T09:42:05.589421", "simulated_time": 771.9898919994012, "device_id": "test_sensor_1", "topic": "test/device1/sensors", "payload": {"sensors": {"temperature": 22.0, "humidity": 55.0}}}
+{"timestamp": "2026-04-17T09:42:05.606420", "simulated_time": 773.0102699983399, "device_id": "test_sensor_2", "topic": "test/device2/sensors", "payload": {"sensors": {"binary": 1.0}}}
+{"timestamp": "2026-04-17T09:42:05.651438", "simulated_time": 775.7112779980525, "device_id": "test_sensor_2", "topic": "test/device2/sensors", "payload": {"sensors": {"binary": 1.0}}}
+{"timestamp": "2026-04-17T09:42:05.676671", "simulated_time": 777.2252220008522, "device_id": "test_sensor_1", "topic": "test/device1/sensors", "payload": {"sensors": {"temperature": 22.0, "humidity": 55.0}}}
+{"timestamp": "2026-04-17T09:42:05.691008", "simulated_time": 778.08509399998, "device_id": "test_sensor_2", "topic": "test/device2/sensors", "payload": {"sensors": {"binary": 1.0}}}
+{"timestamp": "2026-04-17T09:42:05.740741", "simulated_time": 781.0686719999649, "device_id": "test_sensor_2", "topic": "test/device2/sensors", "payload": {"sensors": {"binary": 1.0}}}
+{"timestamp": "2026-04-17T09:42:05.774071", "simulated_time": 783.0692999996245, "device_id": "test_sensor_1", "topic": "test/device1/sensors", "payload": {"sensors": {"temperature": 22.0, "humidity": 55.0}}}
+{"timestamp": "2026-04-17T09:42:05.774591", "simulated_time": 783.1005119998008, "device_id": "test_sensor_2", "topic": "test/device2/sensors", "payload": {"sensors": {"binary": 1.0}}}
+{"timestamp": "2026-04-17T09:42:05.822307", "simulated_time": 785.9631060005631, "device_id": "test_sensor_2", "topic": "test/device2/sensors", "payload": {"sensors": {"binary": 1.0}}}
+{"timestamp": "2026-04-17T09:42:05.858097", "simulated_time": 788.1087900011335, "device_id": "test_sensor_2", "topic": "test/device2/sensors", "payload": {"sensors": {"binary": 1.0}}}
+{"timestamp": "2026-04-17T09:42:05.862070", "simulated_time": 788.3447399991564, "device_id": "test_sensor_1", "topic": "test/device1/sensors", "payload": {"sensors": {"temperature": 22.0, "humidity": 55.0}}}
+{"timestamp": "2026-04-17T09:42:05.906411", "simulated_time": 791.0073539998848, "device_id": "test_sensor_2", "topic": "test/device2/sensors", "payload": {"sensors": {"binary": 1.0}}}
+{"timestamp": "2026-04-17T09:42:05.941967", "simulated_time": 793.1206619984005, "device_id": "test_sensor_2", "topic": "test/device2/sensors", "payload": {"sensors": {"binary": 1.0}}}
+{"timestamp": "2026-04-17T09:42:05.961259", "simulated_time": 794.2980299983174, "device_id": "test_sensor_1", "topic": "test/device1/sensors", "payload": {"sensors": {"temperature": 22.0, "humidity": 55.0}}}
+{"timestamp": "2026-04-17T09:42:05.978680", "simulated_time": 795.343235997716, "device_id": "test_sensor_2", "topic": "test/device2/sensors", "payload": {"sensors": {"binary": 1.0}}}
+{"timestamp": "2026-04-17T09:42:06.025626", "simulated_time": 798.1600139988586, "device_id": "test_sensor_2", "topic": "test/device2/sensors", "payload": {"sensors": {"binary": 1.0}}}
+{"timestamp": "2026-04-17T09:42:06.050471", "simulated_time": 799.651866001077, "device_id": "test_sensor_1", "topic": "test/device1/sensors", "payload": {"sensors": {"temperature": 22.0, "humidity": 55.0}}}
+{"timestamp": "2026-04-17T09:42:06.075049", "simulated_time": 801.1256099981256, "device_id": "test_sensor_2", "topic": "test/device2/sensors", "payload": {"sensors": {"binary": 1.0}}}
+{"timestamp": "2026-04-17T09:42:06.126271", "simulated_time": 804.1990919981617, "device_id": "test_sensor_2", "topic": "test/device2/sensors", "payload": {"sensors": {"binary": 1.0}}}
+{"timestamp": "2026-04-17T09:42:06.143947", "simulated_time": 805.2580320008565, "device_id": "test_sensor_1", "topic": "test/device1/sensors", "payload": {"sensors": {"temperature": 22.0, "humidity": 55.0}}}
+{"timestamp": "2026-04-17T09:42:06.162425", "simulated_time": 806.3702820008621, "device_id": "test_sensor_2", "topic": "test/device2/sensors", "payload": {"sensors": {"binary": 1.0}}}
+{"timestamp": "2026-04-17T09:42:06.208076", "simulated_time": 809.1087239992339, "device_id": "test_sensor_2", "topic": "test/device2/sensors", "payload": {"sensors": {"binary": 1.0}}}
+{"timestamp": "2026-04-17T09:42:06.243198", "simulated_time": 811.2162719992921, "device_id": "test_sensor_1", "topic": "test/device1/sensors", "payload": {"sensors": {"temperature": 22.0, "humidity": 55.0}}}
+{"timestamp": "2026-04-17T09:42:06.243681", "simulated_time": 811.245965998387, "device_id": "test_sensor_2", "topic": "test/device2/sensors", "payload": {"sensors": {"binary": 1.0}}}
+{"timestamp": "2026-04-17T09:42:06.289589", "simulated_time": 813.9992819982581, "device_id": "test_sensor_2", "topic": "test/device2/sensors", "payload": {"sensors": {"binary": 1.0}}}
+{"timestamp": "2026-04-17T09:42:06.339537", "simulated_time": 816.9962939992547, "device_id": "test_sensor_2", "topic": "test/device2/sensors", "payload": {"sensors": {"binary": 1.0}}}
+{"timestamp": "2026-04-17T09:42:06.341573", "simulated_time": 817.1174459997565, "device_id": "test_sensor_1", "topic": "test/device1/sensors", "payload": {"sensors": {"temperature": 22.0, "humidity": 55.0}}}
+{"timestamp": "2026-04-17T09:42:06.374388", "simulated_time": 819.081173997838, "device_id": "test_sensor_2", "topic": "test/device2/sensors", "payload": {"sensors": {"binary": 1.0}}}
+{"timestamp": "2026-04-17T09:42:06.423491", "simulated_time": 822.0317159977276, "device_id": "test_sensor_2", "topic": "test/device2/sensors", "payload": {"sensors": {"binary": 1.0}}}
+{"timestamp": "2026-04-17T09:42:06.442230", "simulated_time": 823.154508001171, "device_id": "test_sensor_1", "topic": "test/device1/sensors", "payload": {"sensors": {"temperature": 22.0, "humidity": 55.0}}}
+{"timestamp": "2026-04-17T09:42:06.459753", "simulated_time": 824.1395219997503, "device_id": "test_sensor_2", "topic": "test/device2/sensors", "payload": {"sensors": {"binary": 1.0}}}
+{"timestamp": "2026-04-17T09:42:06.507976", "simulated_time": 827.1019799995702, "device_id": "test_sensor_2", "topic": "test/device2/sensors", "payload": {"sensors": {"binary": 1.0}}}
+{"timestamp": "2026-04-17T09:42:06.527871", "simulated_time": 828.2962319988292, "device_id": "test_sensor_1", "topic": "test/device1/sensors", "payload": {"sensors": {"temperature": 22.0, "humidity": 55.0}}}
+{"timestamp": "2026-04-17T09:42:06.557489", "simulated_time": 830.0727659999393, "device_id": "test_sensor_2", "topic": "test/device2/sensors", "payload": {"sensors": {"binary": 1.0}}}
+{"timestamp": "2026-04-17T09:42:06.606871", "simulated_time": 833.0236499989405, "device_id": "test_sensor_2", "topic": "test/device2/sensors", "payload": {"sensors": {"binary": 1.0}}}
+{"timestamp": "2026-04-17T09:42:06.625659", "simulated_time": 834.1631220001727, "device_id": "test_sensor_1", "topic": "test/device1/sensors", "payload": {"sensors": {"temperature": 22.0, "humidity": 55.0}}}
+{"timestamp": "2026-04-17T09:42:06.641744", "simulated_time": 835.1288039982319, "device_id": "test_sensor_2", "topic": "test/device2/sensors", "payload": {"sensors": {"binary": 1.0}}}
+{"timestamp": "2026-04-17T09:42:06.691310", "simulated_time": 838.0981439980678, "device_id": "test_sensor_2", "topic": "test/device2/sensors", "payload": {"sensors": {"binary": 1.0}}}
+{"timestamp": "2026-04-17T09:42:06.717051", "simulated_time": 839.6443559986074, "device_id": "test_sensor_1", "topic": "test/device1/sensors", "payload": {"sensors": {"temperature": 22.0, "humidity": 55.0}}}
+{"timestamp": "2026-04-17T09:42:06.727699", "simulated_time": 840.2846519986633, "device_id": "test_sensor_2", "topic": "test/device2/sensors", "payload": {"sensors": {"binary": 1.0}}}
+{"timestamp": "2026-04-17T09:42:06.775876", "simulated_time": 843.1749300006777, "device_id": "test_sensor_2", "topic": "test/device2/sensors", "payload": {"sensors": {"binary": 1.0}}}
+{"timestamp": "2026-04-17T09:42:06.812314", "simulated_time": 845.3604360006284, "device_id": "test_sensor_1", "topic": "test/device1/sensors", "payload": {"sensors": {"temperature": 22.0, "humidity": 55.0}}}
+{"timestamp": "2026-04-17T09:42:06.813228", "simulated_time": 845.4178619978484, "device_id": "test_sensor_2", "topic": "test/device2/sensors", "payload": {"sensors": {"binary": 1.0}}}
+{"timestamp": "2026-04-17T09:42:06.857138", "simulated_time": 848.0528519977815, "device_id": "test_sensor_2", "topic": "test/device2/sensors", "payload": {"sensors": {"binary": 1.0}}}
+{"timestamp": "2026-04-17T09:42:06.893787", "simulated_time": 850.2516240009572, "device_id": "test_sensor_2", "topic": "test/device2/sensors", "payload": {"sensors": {"binary": 1.0}}}
+{"timestamp": "2026-04-17T09:42:06.909712", "simulated_time": 851.2073399999645, "device_id": "test_sensor_1", "topic": "test/device1/sensors", "payload": {"sensors": {"temperature": 22.0, "humidity": 55.0}}}
+{"timestamp": "2026-04-17T09:42:06.940893", "simulated_time": 853.0768680002075, "device_id": "test_sensor_2", "topic": "test/device2/sensors", "payload": {"sensors": {"binary": 1.0}}}
+{"timestamp": "2026-04-17T09:42:06.975297", "simulated_time": 855.1426680001896, "device_id": "test_sensor_2", "topic": "test/device2/sensors", "payload": {"sensors": {"binary": 1.0}}}
+{"timestamp": "2026-04-17T09:42:07.008249", "simulated_time": 857.1152099990286, "device_id": "test_sensor_1", "topic": "test/device1/sensors", "payload": {"sensors": {"temperature": 22.0, "humidity": 55.0}}}
+{"timestamp": "2026-04-17T09:42:07.025190", "simulated_time": 858.1362299993634, "device_id": "test_sensor_2", "topic": "test/device2/sensors", "payload": {"sensors": {"binary": 1.0}}}
+{"timestamp": "2026-04-17T09:42:07.074143", "simulated_time": 861.0728459979873, "device_id": "test_sensor_2", "topic": "test/device2/sensors", "payload": {"sensors": {"binary": 1.0}}}
+{"timestamp": "2026-04-17T09:42:07.093664", "simulated_time": 862.2446580010001, "device_id": "test_sensor_1", "topic": "test/device1/sensors", "payload": {"sensors": {"temperature": 22.0, "humidity": 55.0}}}
+{"timestamp": "2026-04-17T09:42:07.123614", "simulated_time": 864.0406680002343, "device_id": "test_sensor_2", "topic": "test/device2/sensors", "payload": {"sensors": {"binary": 1.0}}}
+{"timestamp": "2026-04-17T09:42:07.160905", "simulated_time": 866.2774619995616, "device_id": "test_sensor_2", "topic": "test/device2/sensors", "payload": {"sensors": {"binary": 1.0}}}
+{"timestamp": "2026-04-17T09:42:07.194779", "simulated_time": 868.3046039985493, "device_id": "test_sensor_1", "topic": "test/device1/sensors", "payload": {"sensors": {"temperature": 22.0, "humidity": 55.0}}}
+{"timestamp": "2026-04-17T09:42:07.195592", "simulated_time": 868.3596419985406, "device_id": "test_sensor_2", "topic": "test/device2/sensors", "payload": {"sensors": {"binary": 1.0}}}
+{"timestamp": "2026-04-17T09:42:07.242694", "simulated_time": 871.1848380009178, "device_id": "test_sensor_2", "topic": "test/device2/sensors", "payload": {"sensors": {"binary": 1.0}}}
+{"timestamp": "2026-04-17T09:42:07.277617", "simulated_time": 873.2785800006241, "device_id": "test_sensor_2", "topic": "test/device2/sensors", "payload": {"sensors": {"binary": 1.0}}}
+{"timestamp": "2026-04-17T09:42:07.296335", "simulated_time": 874.4033939985093, "device_id": "test_sensor_1", "topic": "test/device1/sensors", "payload": {"sensors": {"temperature": 22.0, "humidity": 55.0}}}
+{"timestamp": "2026-04-17T09:42:07.325073", "simulated_time": 876.1272299999837, "device_id": "test_sensor_2", "topic": "test/device2/sensors", "payload": {"sensors": {"binary": 1.0}}}
+{"timestamp": "2026-04-17T09:42:07.360893", "simulated_time": 878.2767539983615, "device_id": "test_sensor_2", "topic": "test/device2/sensors", "payload": {"sensors": {"binary": 1.0}}}
+{"timestamp": "2026-04-17T09:42:07.401986", "simulated_time": 880.7414880010765, "device_id": "test_sensor_1", "topic": "test/device1/sensors", "payload": {"sensors": {"temperature": 22.0, "humidity": 55.0}}}
+{"timestamp": "2026-04-17T09:42:07.406152", "simulated_time": 880.9915199980605, "device_id": "test_sensor_2", "topic": "test/device2/sensors", "payload": {"sensors": {"binary": 1.0}}}
+{"timestamp": "2026-04-17T09:42:07.456931", "simulated_time": 884.040641997708, "device_id": "test_sensor_2", "topic": "test/device2/sensors", "payload": {"sensors": {"binary": 1.0}}}
+{"timestamp": "2026-04-17T09:42:07.493458", "simulated_time": 886.2321479979437, "device_id": "test_sensor_1", "topic": "test/device1/sensors", "payload": {"sensors": {"temperature": 22.0, "humidity": 55.0}}}
+{"timestamp": "2026-04-17T09:42:07.494538", "simulated_time": 886.2971040001139, "device_id": "test_sensor_2", "topic": "test/device2/sensors", "payload": {"sensors": {"binary": 1.0}}}
+{"timestamp": "2026-04-17T09:42:07.540490", "simulated_time": 889.0539299987722, "device_id": "test_sensor_2", "topic": "test/device2/sensors", "payload": {"sensors": {"binary": 1.0}}}
+{"timestamp": "2026-04-17T09:42:07.590146", "simulated_time": 892.0333979988936, "device_id": "test_sensor_2", "topic": "test/device2/sensors", "payload": {"sensors": {"binary": 1.0}}}
+{"timestamp": "2026-04-17T09:42:07.591450", "simulated_time": 892.1110740001313, "device_id": "test_sensor_1", "topic": "test/device1/sensors", "payload": {"sensors": {"temperature": 22.0, "humidity": 55.0}}}
+{"timestamp": "2026-04-17T09:42:07.627205", "simulated_time": 894.2554200009909, "device_id": "test_sensor_2", "topic": "test/device2/sensors", "payload": {"sensors": {"binary": 1.0}}}
+{"timestamp": "2026-04-17T09:42:07.673994", "simulated_time": 897.0637440006249, "device_id": "test_sensor_2", "topic": "test/device2/sensors", "payload": {"sensors": {"binary": 1.0}}}
+{"timestamp": "2026-04-17T09:42:07.692453", "simulated_time": 898.1709660007618, "device_id": "test_sensor_1", "topic": "test/device1/sensors", "payload": {"sensors": {"temperature": 22.0, "humidity": 55.0}}}
+{"timestamp": "2026-04-17T09:42:07.709359", "simulated_time": 899.184395999182, "device_id": "test_sensor_2", "topic": "test/device2/sensors", "payload": {"sensors": {"binary": 1.0}}}
+{"timestamp": "2026-04-17T09:42:07.795410", "simulated_time": 904.3487579980865, "device_id": "test_sensor_2", "topic": "test/device2/sensors", "payload": {"sensors": {"binary": 1.0}}}
+{"timestamp": "2026-04-17T09:42:07.829819", "simulated_time": 906.4134600001853, "device_id": "test_sensor_1", "topic": "test/device1/sensors", "payload": {"sensors": {"temperature": 22.0, "humidity": 55.0}}}
+{"timestamp": "2026-04-17T09:42:07.830351", "simulated_time": 906.446526000509, "device_id": "test_sensor_2", "topic": "test/device2/sensors", "payload": {"sensors": {"binary": 1.0}}}
+{"timestamp": "2026-04-17T09:42:07.875149", "simulated_time": 909.1335539985448, "device_id": "test_sensor_2", "topic": "test/device2/sensors", "payload": {"sensors": {"binary": 1.0}}}
+{"timestamp": "2026-04-17T09:42:07.923988", "simulated_time": 912.0640259992797, "device_id": "test_sensor_2", "topic": "test/device2/sensors", "payload": {"sensors": {"binary": 1.0}}}
+{"timestamp": "2026-04-17T09:42:07.925156", "simulated_time": 912.1352820005268, "device_id": "test_sensor_1", "topic": "test/device1/sensors", "payload": {"sensors": {"temperature": 22.0, "humidity": 55.0}}}
+{"timestamp": "2026-04-17T09:42:07.959287", "simulated_time": 914.1798299993388, "device_id": "test_sensor_2", "topic": "test/device2/sensors", "payload": {"sensors": {"binary": 1.0}}}
+{"timestamp": "2026-04-17T09:42:07.994354", "simulated_time": 916.2842880003154, "device_id": "test_sensor_2", "topic": "test/device2/sensors", "payload": {"sensors": {"binary": 1.0}}}
+{"timestamp": "2026-04-17T09:42:08.013058", "simulated_time": 917.4062879977282, "device_id": "test_sensor_1", "topic": "test/device1/sensors", "payload": {"sensors": {"temperature": 22.0, "humidity": 55.0}}}
+{"timestamp": "2026-04-17T09:42:08.029799", "simulated_time": 918.4113239985891, "device_id": "test_sensor_2", "topic": "test/device2/sensors", "payload": {"sensors": {"binary": 1.0}}}
+{"timestamp": "2026-04-17T09:42:08.075726", "simulated_time": 921.1677839979529, "device_id": "test_sensor_2", "topic": "test/device2/sensors", "payload": {"sensors": {"binary": 1.0}}}
+{"timestamp": "2026-04-17T09:42:08.112515", "simulated_time": 923.3738040004391, "device_id": "test_sensor_1", "topic": "test/device1/sensors", "payload": {"sensors": {"temperature": 22.0, "humidity": 55.0}}}
+{"timestamp": "2026-04-17T09:42:08.113192", "simulated_time": 923.4159780002665, "device_id": "test_sensor_2", "topic": "test/device2/sensors", "payload": {"sensors": {"binary": 1.0}}}
+{"timestamp": "2026-04-17T09:42:08.158112", "simulated_time": 926.1100799997803, "device_id": "test_sensor_2", "topic": "test/device2/sensors", "payload": {"sensors": {"binary": 1.0}}}
+{"timestamp": "2026-04-17T09:42:08.193491", "simulated_time": 928.232189998962, "device_id": "test_sensor_2", "topic": "test/device2/sensors", "payload": {"sensors": {"binary": 1.0}}}
+{"timestamp": "2026-04-17T09:42:08.213362", "simulated_time": 929.4228659989312, "device_id": "test_sensor_1", "topic": "test/device1/sensors", "payload": {"sensors": {"temperature": 22.0, "humidity": 55.0}}}
+{"timestamp": "2026-04-17T09:42:08.229768", "simulated_time": 930.4086780000944, "device_id": "test_sensor_2", "topic": "test/device2/sensors", "payload": {"sensors": {"binary": 1.0}}}
+{"timestamp": "2026-04-17T09:42:08.308084", "simulated_time": 935.109461999964, "device_id": "test_sensor_1", "topic": "test/device1/sensors", "payload": {"sensors": {"temperature": 22.0, "humidity": 55.0}}}

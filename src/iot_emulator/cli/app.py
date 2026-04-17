@@ -206,6 +206,17 @@ def inject_error(
     asyncio.run(_inject())
 
 
+# @app.command()
+# def replay(
+#     log_file: str = typer.Argument(..., help="Путь к лог-файлу с телеметрией"),
+#     speed: float = typer.Option(1.0, "--speed", "-s", help="Коэффициент ускорения воспроизведения"),
+#     broker: str = typer.Option("localhost:1883", "--broker", "-b", help="MQTT брокер"),
+# ):
+#     """Воспроизвести телеметрию из лог-файла"""
+#     typer.echo(f"⚠️ Режим replay будет реализован позже")
+#     typer.echo(f"   log_file={log_file}, speed={speed}, broker={broker}")
+
+
 @app.command()
 def replay(
     log_file: str = typer.Argument(..., help="Путь к лог-файлу с телеметрией"),
@@ -213,10 +224,66 @@ def replay(
     broker: str = typer.Option("localhost:1883", "--broker", "-b", help="MQTT брокер"),
 ):
     """Воспроизвести телеметрию из лог-файла"""
-    typer.echo(f"⚠️ Режим replay будет реализован позже")
-    typer.echo(f"   log_file={log_file}, speed={speed}, broker={broker}")
+    import json
+    import asyncio
+    from iot_emulator.mqtt import MQTTClient
+    
+    typer.echo(f"Воспроизведение из лога: {log_file}")
+    typer.echo(f"Коэффициент ускорения: {speed}x")
+    typer.echo(f"MQTT брокер: {broker}")
+    
+    async def _replay():
+        # Парсим брокер
+        host, port = broker.split(':') if ':' in broker else (broker, 1883)
+        port = int(port)
+        
+        # Создаём MQTT клиент для воспроизведения
+        client = MQTTClient("replay_client", host, port)
+        if not await client.connect():
+            typer.echo("Не удалось подключиться к MQTT брокеру", err=True)
+            return
+        
+        # Читаем лог-файл
+        entries = []
+        with open(log_file, 'r', encoding='utf-8') as f:
+            for line in f:
+                if line.strip():
+                    entries.append(json.loads(line))
+        
+        if not entries:
+            typer.echo("Лог-файл пуст")
+            return
+        
+        typer.echo(f"Загружено {len(entries)} сообщений")
+        
+        # Находим начальное время
+        start_time = entries[0].get("simulated_time", 0)
+        last_time = start_time
+        import time
+        real_start = time.time()
+        
+        for entry in entries:
+            simulated_time = entry.get("simulated_time", 0)
+            topic = entry.get("topic", "replay/topic")
+            payload = entry.get("payload", {})
+            
+            # Рассчитываем задержку
+            if simulated_time > last_time:
+                delay = (simulated_time - last_time) / speed
+                await asyncio.sleep(delay)
+            
+            # Публикуем сообщение
+            payload_str = json.dumps(payload) if isinstance(payload, dict) else str(payload)
+            await client.publish(topic, payload_str)
+            
+            last_time = simulated_time
+        
+        await client.disconnect()
+        typer.echo("Воспроизведение завершено")
+    
+    asyncio.run(_replay())
 
-
+    
 @app.command()
 def stats(
     device_id: Optional[str] = typer.Argument(None, help="ID устройства (если не указан — общая статистика)"),

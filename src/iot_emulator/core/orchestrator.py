@@ -5,6 +5,8 @@ from typing import Dict, List, Optional, Set
 
 from iot_emulator.core.device import Device
 from iot_emulator.utils.config_loader import Config, DeviceConfig
+from iot_emulator.logging import TelemetryLogger
+
 
 logger = logging.getLogger(__name__)
 
@@ -20,10 +22,13 @@ class DeviceOrchestrator:
         self._config: Optional[Config] = None
         self._shutdown_event = asyncio.Event()
         self._shutdown_started = False
+        self._telemetry_logger: Optional[TelemetryLogger] = None
+        
 
     def load_config(self, config: Config) -> None:
         """Загрузить конфигурацию (но не запускать устройства)"""
         self._config = config
+
 
     async def start_all(self, speed_factor: float = 1.0) -> None:
         """Запустить все устройства из конфигурации"""
@@ -38,6 +43,10 @@ class DeviceOrchestrator:
         st.start(speed_factor=speed_factor)
         logger.info(f"Simulated time started with speed factor: {speed_factor}")
         
+        # Запускаем логгер телеметрии
+        self._telemetry_logger = TelemetryLogger()
+        await self._telemetry_logger.start()
+
         # Создаём и запускаем устройства
         for device_config in self._config.devices:
             if device_config.id in self._devices:
@@ -55,7 +64,9 @@ class DeviceOrchestrator:
             await mqtt_client.connect()
             
             # Создаём устройство
-            device = Device(device_config, mqtt_client=mqtt_client)
+            #device = Device(device_config, mqtt_client=mqtt_client)
+                        # Создаём устройство
+            device = Device(device_config, mqtt_client=mqtt_client, telemetry_logger=self._telemetry_logger)
             self._devices[device_config.id] = device
             device.start()
             logger.info(f"Device {device_config.id} started")
@@ -124,6 +135,10 @@ class DeviceOrchestrator:
             # Даём время на отмену
             await asyncio.sleep(0.5)
         
+        # Останавливаем логгер телеметрии
+        if self._telemetry_logger:
+            await self._telemetry_logger.stop()
+
         self._devices.clear()
         
         # Останавливаем симуляцию времени
@@ -150,8 +165,14 @@ class DeviceOrchestrator:
         return set(self._devices.keys())
 
     def _parse_broker_address(self, address: str) -> tuple:
+
         """Разобрать адрес брокера 'host:port' -> (host, port)"""
         parts = address.split(':')
         host = parts[0]
         port = int(parts[1]) if len(parts) > 1 else 1883
         return host, port
+    
+
+    def get_telemetry_logger(self) -> Optional[TelemetryLogger]:
+        """Получить логгер телеметрии"""
+        return self._telemetry_logger

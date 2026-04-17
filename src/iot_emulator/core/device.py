@@ -8,7 +8,7 @@ from iot_emulator.time_simulation import get_simulated_sleep
 from iot_emulator.sensors import SensorRegistry
 from iot_emulator.behavior import BehaviorScript, load_behavior_from_file
 from iot_emulator.errors import ErrorInjector, ErrorType
-
+from iot_emulator.logging import TelemetryLogger
 
 
 if TYPE_CHECKING:
@@ -23,7 +23,9 @@ class Device:
     Пока без MQTT — просто выводит данные в консоль.
     """
 
-    def __init__(self, config: DeviceConfig, mqtt_client: Optional['MQTTClient'] = None):
+    def __init__(self, config: DeviceConfig, 
+                 telemetry_logger: Optional[TelemetryLogger] = None,
+                 mqtt_client: Optional['MQTTClient'] = None):
         self.config = config
         self.id = config.id
         self._is_running = False
@@ -58,12 +60,13 @@ class Device:
         self._last_command: Optional[str] = None
                 # Инжектор ошибок
         self._error_injector = ErrorInjector(self.id)
+        self._telemetry_logger = telemetry_logger
 
 
     async def _publish_telemetry(self) -> None:
         """
         Публикация телеметрии через MQTT или print.
-        С поддержкой инъекции ошибок.
+        С поддержкой инъекции ошибок и логирования.
         """
         import json
         
@@ -86,6 +89,16 @@ class Device:
             success = await self._mqtt_client.publish(topic, payload, qos=self.config.mqtt.qos)
             if success:
                 self._message_count += 1
+                # Логируем телеметрию (MQTT)
+                if self._telemetry_logger:
+                    from iot_emulator.time_simulation import get_simulated_time
+                    st = get_simulated_time()
+                    await self._telemetry_logger.log(
+                        device_id=self.id,
+                        topic=topic,
+                        payload=payload,
+                        simulated_time=st.get_current_time()
+                    )
             else:
                 logger.warning(f"[{self.id}] MQTT publish failed")
         else:
@@ -93,34 +106,16 @@ class Device:
             timestamp_str = __import__('datetime').datetime.now().strftime("%H:%M:%S.%f")[:-3]
             print(f"[{timestamp_str}] [{self.id}] TELEMETRY: {self._sensor_values}")
             self._message_count += 1
-        """
-        Публикация телеметрии через MQTT или print (если MQTT не доступен).
-        """
-        import json
-        
-        # Формируем payload
-        payload = json.dumps({
-            "device_id": self.id,
-            "timestamp": self._simulated_sleep._simulated_time.get_current_time(),
-            "sensors": self._sensor_values
-        })
-        
-        topic = self.config.mqtt.telemetry_topic
-        
-        if self._mqtt_client and self._mqtt_client.is_connected():
-            # Публикуем через MQTT
-            success = await self._mqtt_client.publish(topic, payload, qos=self.config.mqtt.qos)
-            if success:
-                self._message_count += 1
-                logger.debug(f"[{self.id}] Published to MQTT: {topic}")
-            else:
-                logger.warning(f"[{self.id}] MQTT publish failed")
-        else:
-            # Fallback на print (для тестирования без MQTT брокера)
-            timestamp_str = __import__('datetime').datetime.now().strftime("%H:%M:%S.%f")[:-3]
-            print(f"[{timestamp_str}] [{self.id}] TELEMETRY: {self._sensor_values}")
-            self._message_count += 1
-
+            # Логируем телеметрию (print-fallback)
+            if self._telemetry_logger:
+                from iot_emulator.time_simulation import get_simulated_time
+                st = get_simulated_time()
+                await self._telemetry_logger.log(
+                    device_id=self.id,
+                    topic=topic,
+                    payload=json.dumps({"sensors": self._sensor_values}),
+                    simulated_time=st.get_current_time()
+                )
 
     async def _update_sensors(self) -> None:
         """
