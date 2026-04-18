@@ -250,14 +250,13 @@ iot-device-emulator/
 └── README.md
 ```
 
-## Благодарности
+## Источники вдохновления:
 
-Проект вдохновлён:
 - [архитектурное предложение - 1](https://github.com/mqtt-smarthome/mqtt-smarthome)
 - [архитектурное предложение - 2](https://github.com/matheus-cortejas/Django-MQTT-Test) 
-- [сценарии поведения через json] [SmartLightingSimulation](https://atnog-code.av.it.pt/smartenvironments/smartlightingsimulation/-/blame/a009d21267a69328051be82b0f716cf2fa24eab7/README.md)
-- [идеи CLI аргументов и логирования] (https://github.com/TheZlodziej/mqtt-simulator)
-- [курс 'Интернет вещей'](https://aiu.susu.ru/iot/samsung) от 'Академии Самсунг' 
+- [сценарии поведения через json](https://atnog-code.av.it.pt/smartenvironments/smartlightingsimulation/-/blame/a009d21267a69328051be82b0f716cf2fa24eab7/README.md)
+- [идеи CLI аргументов и логирования](https://github.com/TheZlodziej/mqtt-simulator)
+- [курс 'Интернет вещей' от 'Академии Самсунг'](https://aiu.susu.ru/iot/samsung)  
 
 
 
