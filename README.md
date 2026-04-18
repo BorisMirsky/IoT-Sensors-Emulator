@@ -3,6 +3,11 @@
 
 Эмулятор IoT-устройств на Python с поддержкой MQTT, симуляцией датчиков, сценариями поведения и инъекцией ошибок.
 
+## Роль AI в этом проекте
+- Примерно три четверти кода сгенерировано DeepSeek, включая структуру проекта и основные маршруты. 
+- Почти весь код уточнялся и правился через корректирующие промпты, общим числом более ~50.
+
+
 ## Возможности
 
 - Симуляция нескольких устройств с независимыми датчиками
@@ -38,7 +43,7 @@ python -m venv venv
 ### 3. Установка зависимостей
 
 ```bash
-pip install -e
+pip install -e .
 ```
 
 ### 4. Проверка установки
@@ -52,7 +57,7 @@ python -m iot_emulator --help
 
 ### 1. Создайте файл конфигурации устройства (configs/my_devices.yaml)
 
-```bash
+```yaml
 devices:
   - id: living_room
     mqtt:
@@ -76,7 +81,7 @@ python -m iot_emulator start --config configs/my_devices.yaml --speed 60
 
 ### 3. Наблюдайте за телеметрией в консоли
 
-```bash
+```text
 [14:30:01.123] [living_room] TELEMETRY: {'temperature': 22.5, 'humidity': 55.0}
 [14:30:06.456] [living_room] TELEMETRY: {'temperature': 22.7, 'humidity': 54.8}
 ```
@@ -252,82 +257,8 @@ iot-device-emulator/
 
 ## Источники вдохновления:
 
-- [архитектурное предложение - 1](https://github.com/mqtt-smarthome/mqtt-smarthome)
+- [архитектурное предложение - 1] (https://github.com/mqtt-smarthome/mqtt-smarthome)
 - [архитектурное предложение - 2](https://github.com/matheus-cortejas/Django-MQTT-Test) 
 - [сценарии поведения через json](https://atnog-code.av.it.pt/smartenvironments/smartlightingsimulation/-/blame/a009d21267a69328051be82b0f716cf2fa24eab7/README.md)
 - [идеи CLI аргументов и логирования](https://github.com/TheZlodziej/mqtt-simulator)
-- [курс 'Интернет вещей' от 'Академии Самсунг'](https://aiu.susu.ru/iot/samsung)  
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+- [курс 'Интернет вещей' от 'Академии Самсунг'](https://aiu.susu.ru/iot/samsung) 
