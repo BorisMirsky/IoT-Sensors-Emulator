@@ -255,7 +255,7 @@ iot-device-emulator/
 └── README.md
 ```
 
-## Источники вдохновления:
+## Источники вдохновения:
 
 - [архитектурное предложение - 1](https://github.com/mqtt-smarthome/mqtt-smarthome)
 - [архитектурное предложение - 2](https://github.com/matheus-cortejas/Django-MQTT-Test) 
