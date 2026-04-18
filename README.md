@@ -12,7 +12,7 @@
 - Сценарии поведения — динамическое изменение целевых значений по расписанию (JSON-правила)
 - Инъекция ошибок — потеря пакетов, задержки, отключения устройств
 - Логирование телеметрии в JSON Lines + возможность воспроизведения (replay)
-- Graceful shutdown — корректная остановка всех устройств по Ctrl+C
+- Корректная остановка всех устройств по Ctrl+C
 
 ## Установка
 
@@ -21,11 +21,13 @@
 ```bash
 git clone https://github.com/your-username/iot-device-emulator.git
 cd iot-device-emulator
+```
 
 ### 2. Создание виртуального окружения
 
 ```bash
 python -m venv venv
+```
 
 Активация:
 
@@ -37,12 +39,13 @@ python -m venv venv
 
 ```bash
 pip install -e
+```
 
 ### 4. Проверка установки
 
 ```bash
 python -m iot_emulator --help
-
+```
 
 
 ## Быстрый старт
@@ -63,20 +66,20 @@ devices:
         initial: 55.0
         noise_std: 2.0
     publish_interval: 5.0
-
+```
 
 ### 2. Запустите эмулятор
 
 ```bash
 python -m iot_emulator start --config configs/my_devices.yaml --speed 60
-
+```
 
 ### 3. Наблюдайте за телеметрией в консоли
 
 ```bash
 [14:30:01.123] [living_room] TELEMETRY: {'temperature': 22.5, 'humidity': 55.0}
 [14:30:06.456] [living_room] TELEMETRY: {'temperature': 22.7, 'humidity': 54.8}
-
+```
 
 ### 4. Остановите эмулятор нажатием Ctrl+C
 
@@ -136,7 +139,7 @@ devices:
         max_value: 50                       # Необязательно (для temperature, humidity)
     behavior_script: "behaviors/cycle.json" # Необязательно, путь к JSON сценарию поведения
     publish_interval: 5.0                   # Необязательно, по умолчанию: 5.0 секунд
-
+```
 
 
 ### Типы датчиков
@@ -167,7 +170,7 @@ devices:
         }
     ]
 }
-
+```
 
 
 **Типы правил:**
@@ -206,26 +209,26 @@ devices:
         name: door_open
         initial: 0
     publish_interval: 1.0
-
+```
 
 ### Пример 2: Запуск с ускорением и логированием телеметрии
 
 ```bash
 python -m iot_emulator start --config configs/home.yaml --speed 120
-
+```
 
 ### Пример 3: Инъекция потери пакетов на всех устройствах
 
 ```bash
 python -m iot_emulator inject-error all --error packet_loss --rate 0.5
-
+```
 
 
 ### Пример 4: Воспроизведение телеметрии из лог-файла
 
 ```bash
 python -m iot_emulator replay logs/telemetry_20250115_203001.jsonl --speed 10
-
+```
 
 ## Структура проекта
 
@@ -245,14 +248,16 @@ iot-device-emulator/
 ├── tests/                # Модульные и интеграционные тесты
 ├── pyproject.toml        # Зависимости и метаданные пакета
 └── README.md
-
+```
 
 ## Благодарности
 
 Проект вдохновлён:
-- [mqtt-smarthome](https://github.com/mqtt-smarthome/mqtt-smarthome) — архитектурное предложение
-- [mqtt-simulator](https://github.com/TheZlodziej/mqtt-simulator) — идеи CLI аргументов и логирования
-
+- [архитектурное предложение - 1](https://github.com/mqtt-smarthome/mqtt-smarthome)
+- [архитектурное предложение - 2](https://github.com/matheus-cortejas/Django-MQTT-Test) 
+- [сценарии поведения через json] [SmartLightingSimulation](https://atnog-code.av.it.pt/smartenvironments/smartlightingsimulation/-/blame/a009d21267a69328051be82b0f716cf2fa24eab7/README.md)
+- [идеи CLI аргументов и логирования] (https://github.com/TheZlodziej/mqtt-simulator)
+- [курс 'Интернет вещей'](https://aiu.susu.ru/iot/samsung) от 'Академии Самсунг' 
 
 
 
