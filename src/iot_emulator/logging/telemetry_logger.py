@@ -7,37 +7,30 @@ import asyncio
 
 logger = logging.getLogger(__name__)
 
-
+# Логгер телеметрии в формате JSON Lines. Каждая строка файла — отдельное JSON-сообщение.
 class TelemetryLogger:
-    """
-    Логгер телеметрии в формате JSON Lines.
-    Каждая строка файла — отдельное JSON-сообщение.
-    """
 
     def __init__(self, log_dir: str = "logs"):
         self.log_dir = Path(log_dir)
         self.log_dir.mkdir(exist_ok=True)
-        
         self._current_file: Optional[Path] = None
         self._file_handle = None
         self._is_enabled = True
         self._write_lock = asyncio.Lock()
 
+    # Получить имя файла лога на основе текущей даты
     def _get_log_filename(self) -> Path:
-        """Получить имя файла лога на основе текущей даты"""
         timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
         return self.log_dir / f"telemetry_{timestamp}.jsonl"
 
     async def start(self) -> None:
-        """Начать логирование (создать новый файл)"""
         self._current_file = self._get_log_filename()
         self._file_handle = open(self._current_file, 'w', encoding='utf-8')
         logger.info(f"Telemetry logging started: {self._current_file}")
 
+    # Записать одно сообщение телеметрии в лог.
     async def log(self, device_id: str, topic: str, payload: str, simulated_time: float) -> None:
         """
-        Записать одно сообщение телеметрии в лог.
-        
         Args:
             device_id: ID устройства
             topic: MQTT топик
@@ -70,7 +63,6 @@ class TelemetryLogger:
                 logger.error(f"Failed to log telemetry: {e}")
 
     async def stop(self) -> None:
-        """Остановить логирование и закрыть файл"""
         self._is_enabled = False
         
         if self._file_handle:
@@ -78,7 +70,7 @@ class TelemetryLogger:
             self._file_handle = None
             logger.info(f"Telemetry logging stopped: {self._current_file}")
 
+    # Включить/выключить логирование
     def set_enabled(self, enabled: bool) -> None:
-        """Включить/выключить логирование"""
         self._is_enabled = enabled
         logger.info(f"Telemetry logging enabled: {enabled}")

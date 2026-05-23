@@ -1,14 +1,10 @@
 from typing import Optional, Dict, Any
-
 from iot_emulator.sensors.base import BaseSensor
 
 
-class CounterSensor(BaseSensor):
-    """
-    Счётчик (например, счётчик воды, электричества).
-    Монотонно возрастает.
-    """
 
+# Счётчик (например, счётчик воды, электричества). Монотонно возрастает.
+class CounterSensor(BaseSensor):
     def __init__(
         self,
         name: str = "counter",
@@ -19,11 +15,8 @@ class CounterSensor(BaseSensor):
         super().__init__(name, initial_value, noise_std)
         self.increment_rate = increment_rate
 
+    # Обновить счётчик. Монотонно увеличивается с заданной скоростью.
     async def update(self, delta_time: float, context: Optional[Dict[str, Any]] = None) -> float:
-        """
-        Обновить счётчик.
-        Монотонно увеличивается с заданной скоростью.
-        """
         dt = min(delta_time, 10.0)
         
         # Увеличиваем счётчик

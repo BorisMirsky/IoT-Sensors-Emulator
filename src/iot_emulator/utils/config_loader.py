@@ -1,57 +1,59 @@
 from pathlib import Path
 from typing import List, Optional, Dict, Any
-from pydantic import BaseModel, Field, validator
+from pydantic import BaseModel, Field, field_validator 
 import yaml
+import tempfile
 
 
+
+# Конфигурация одного датчика
 class SensorConfig(BaseModel):
-    """Конфигурация одного датчика"""
-    type: str  # temperature, humidity, binary, counter
+    type: str
     name: Optional[str] = None
     initial: float = 0.0
     noise_std: float = 0.0
-    trend: Optional[str] = None  # например: "+0.1 per hour"
-    correlation_with: Optional[str] = None  # имя другого датчика
+    trend: Optional[str] = None
+    correlation_with: Optional[str] = None
     min_value: Optional[float] = None
     max_value: Optional[float] = None
 
-    @validator('type')
-    def type_must_be_supported(cls, v):
+    @field_validator('type')
+    @classmethod
+    def type_must_be_supported(cls, v: str) -> str:
         supported = ['temperature', 'humidity', 'binary', 'counter']
         if v not in supported:
             raise ValueError(f'Unsupported sensor type: {v}. Supported: {supported}')
         return v
+    
 
-
+# MQTT конфигурация устройства
 class MQTTConfig(BaseModel):
-    """MQTT конфигурация устройства"""
     broker: str = "localhost:1883"
     telemetry_topic: str
     command_topic: Optional[str] = None
     qos: int = 0
 
-
+# Полная конфигурация одного устройства
 class DeviceConfig(BaseModel):
-    """Полная конфигурация одного устройства"""
     id: str
     mqtt: MQTTConfig
     sensors: List[SensorConfig]
-    behavior_script: Optional[str] = None  # путь к файлу сценария
-    publish_interval: float = 5.0  # секунд (реальных или симулированных)
-    speed_factor_override: Optional[float] = None  # если нужно замедлить конкретное устройство
+    behavior_script: Optional[str] = None           # путь к файлу сценария
+    publish_interval: float = 5.0                   # секунд (реальных или симулированных)
+    speed_factor_override: Optional[float] = None   # если нужно замедлить конкретное устройство
 
 
+# Корневая конфигурация эмулятора
 class Config(BaseModel):
-    """Корневая конфигурация эмулятора"""
     devices: List[DeviceConfig]
 
 
+# Загрузчик конфигураций из YAML файлов
 class ConfigLoader:
-    """Загрузчик конфигураций из YAML файлов"""
 
     @staticmethod
     def load_from_file(file_path: str) -> Config:
-        """Загрузить конфигурацию из YAML файла"""
+        # Загрузить конфигурацию из YAML файла
         path = Path(file_path)
         if not path.exists():
             raise FileNotFoundError(f"Config file not found: {file_path}")
@@ -63,7 +65,7 @@ class ConfigLoader:
 
     @staticmethod
     def load_from_dict(data: Dict[str, Any]) -> Config:
-        """Загрузить конфигурацию из словаря"""
+        # Загрузить конфигурацию из словаря
         return Config(**data)
 
 
@@ -96,7 +98,6 @@ devices:
         initial: 0
     publish_interval: 1.0
 """
-    import tempfile
     with tempfile.NamedTemporaryFile(mode='w', suffix='.yaml', delete=False) as f:
         f.write(sample_yaml)
         temp_path = f.name

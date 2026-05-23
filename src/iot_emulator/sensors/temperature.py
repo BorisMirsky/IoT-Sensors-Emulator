@@ -1,21 +1,15 @@
 import math
 from typing import Optional, Dict, Any
-
 from iot_emulator.sensors.base import BaseSensor
 
-
+# Датчик температуры с инерцией. Меняется плавно к целевой температуре.
 class TemperatureSensor(BaseSensor):
-    """
-    Датчик температуры с инерцией.
-    Меняется плавно к целевой температуре.
-    """
-
     def __init__(
         self,
         name: str = "temperature",
         initial_value: float = 22.0,
         noise_std: float = 0.3,
-        inertia: float = 0.1,  # Скорость изменения (0..1)
+        inertia: float = 0.1,                   # Скорость изменения 
         min_value: Optional[float] = -10.0,
         max_value: Optional[float] = 50.0
     ):
@@ -25,20 +19,18 @@ class TemperatureSensor(BaseSensor):
         self.max_value = max_value
         self._target_value = initial_value
 
+    # Установить целевую температуру
     def set_target(self, target: float) -> None:
-        """Установить целевую температуру"""
         if self.min_value is not None:
             target = max(self.min_value, target)
         if self.max_value is not None:
             target = min(self.max_value, target)
         self._target_value = target
 
+
+    # Обновить температуру с учётом инерции.      
+    # Формула: value = value + (target - value) * inertia * delta_time
     async def update(self, delta_time: float, context: Optional[Dict[str, Any]] = None) -> float:
-        """
-        Обновить температуру с учётом инерции.
-        
-        Формула: value = value + (target - value) * inertia * delta_time
-        """
         # Ограничиваем delta_time, чтобы избежать резких скачков
         dt = min(delta_time, 10.0)
         

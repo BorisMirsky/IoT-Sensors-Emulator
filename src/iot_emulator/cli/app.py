@@ -3,7 +3,11 @@ import typer
 from typing import Optional
 import signal
 import logging
+import json
+import asyncio
+import time 
 
+from iot_emulator.mqtt import MQTTClient
 from iot_emulator.utils.config_loader import ConfigLoader
 from iot_emulator.core.orchestrator import DeviceOrchestrator
 
@@ -21,7 +25,7 @@ logging.basicConfig(
 )
 
 
-# Глобальный оркестратор (будет инициализирован при старте)
+# Глобальный оркестратор, будет инициализирован при старте
 _orchestrator: Optional[DeviceOrchestrator] = None
 
 
@@ -31,7 +35,7 @@ def start(
     speed: float = typer.Option(1.0, "--speed", "-s", help="Коэффициент ускорения времени (например, 60 = 1 минута за 1 секунду)"),
     broker: str = typer.Option("localhost:1883", "--broker", "-b", help="MQTT брокер (host:port)"),
 ):
-    """Запустить эмулятор с указанной конфигурацией"""
+    # Запустить эмулятор с указанной конфигурацией
     global _orchestrator
     
     typer.echo(f"Загрузка конфигурации из: {config}")
@@ -40,11 +44,8 @@ def start(
     typer.echo("")
     
     try:
-        # Загружаем конфиг
         cfg = ConfigLoader.load_from_file(config)
         typer.echo(f"Загружено устройств: {len(cfg.devices)}")
-        
-        # Создаём оркестратор
         _orchestrator = DeviceOrchestrator()
         _orchestrator.load_config(cfg)
         
@@ -57,27 +58,27 @@ def start(
     except KeyboardInterrupt:
         # asyncio.run() преобразует KeyboardInterrupt в CancelledError,
         # но на всякий случай оставляем обработку
-        typer.echo("\n⏹️  Эмулятор остановлен пользователем")
+        typer.echo("\n Эмулятор остановлен пользователем")
     except Exception as e:
         typer.echo(f"Ошибка: {e}", err=True)
         raise typer.Exit(code=1)
 
 
 async def _run_emulator(speed: float):
-    """Внутренняя асинхронная функция запуска эмулятора"""
+    # Внутренняя асинхронная функция запуска эмулятора
     global _orchestrator
     
-    # Настройка обработки сигналов для graceful shutdown
+    # Настройка обработки сигналов для мягкого закрытия соединения
     loop = asyncio.get_running_loop()
     
-    # Для Windows: SignalHandler работает иначе, используем флаг
+    # В Windows SignalHandler работает иначе, используем флаг
     shutdown_requested = False
     
     def signal_handler():
         nonlocal shutdown_requested
         if not shutdown_requested:
             shutdown_requested = True
-            typer.echo("\n⏹️  Получен сигнал остановки...")
+            typer.echo("\n Получен сигнал остановки...")
             asyncio.create_task(_shutdown())
     
     async def _shutdown():
@@ -89,13 +90,12 @@ async def _run_emulator(speed: float):
         loop.add_signal_handler(signal.SIGINT, signal_handler)
         loop.add_signal_handler(signal.SIGTERM, signal_handler)
     except NotImplementedError:
-        # Windows не поддерживает add_signal_handler
-        # Используем простой флаг
+        # Windows не поддерживает add_signal_handler => используем простой флаг
         pass
     
     await _orchestrator.start_all(speed_factor=speed)
     
-    # Бесконечный цикл, пока не нажмут Ctrl+C
+    # Бесконечный цикл, пока не нажали Ctrl+C
     try:
         while not shutdown_requested:
             await asyncio.sleep(0.5)
@@ -110,7 +110,7 @@ async def _run_emulator(speed: float):
 def stop(
     device_id: Optional[str] = typer.Argument(None, help="ID устройства (если не указан — остановить все)"),
 ):
-    """Остановить устройство или все устройства"""
+    # Остановить устройство / все устройства
     global _orchestrator
     
     if _orchestrator is None:
@@ -131,9 +131,9 @@ def stop(
     asyncio.run(_stop())
 
 
+# Показать список активных устройств и их статус
 @app.command()
 def list_devices():
-    """Показать список активных устройств и их статус"""
     global _orchestrator
     
     if _orchestrator is None:
@@ -146,7 +146,7 @@ def list_devices():
         typer.echo("Нет активных устройств")
         return
     
-    typer.echo(f"\nАктивных устройств: {len(statuses)}")
+    typer.echo(f"\n Активных устройств: {len(statuses)}")
     typer.echo("-" * 60)
     
     for status in statuses:
@@ -157,6 +157,7 @@ def list_devices():
         typer.echo("")
 
 
+# Инъекция ошибки в работу устройства
 @app.command()
 def inject_error(
     device_id: str = typer.Argument(..., help="ID устройства или 'all'"),
@@ -167,7 +168,6 @@ def inject_error(
     max_delay: float = typer.Option(3.0, "--max-delay", help="Макс. задержка (сек)"),
     remove: bool = typer.Option(False, "--remove", help="Удалить ошибку, а не добавлять"),
 ):
-    """Инъекция ошибки в работу устройства"""
     global _orchestrator
     
     if _orchestrator is None:
@@ -223,11 +223,7 @@ def replay(
     speed: float = typer.Option(1.0, "--speed", "-s", help="Коэффициент ускорения воспроизведения"),
     broker: str = typer.Option("localhost:1883", "--broker", "-b", help="MQTT брокер"),
 ):
-    """Воспроизвести телеметрию из лог-файла"""
-    import json
-    import asyncio
-    from iot_emulator.mqtt import MQTTClient
-    
+    # Воспроизвести телеметрию из лог-файла
     typer.echo(f"Воспроизведение из лога: {log_file}")
     typer.echo(f"Коэффициент ускорения: {speed}x")
     typer.echo(f"MQTT брокер: {broker}")
@@ -259,20 +255,18 @@ def replay(
         # Находим начальное время
         start_time = entries[0].get("simulated_time", 0)
         last_time = start_time
-        import time
-        real_start = time.time()
         
         for entry in entries:
             simulated_time = entry.get("simulated_time", 0)
             topic = entry.get("topic", "replay/topic")
             payload = entry.get("payload", {})
             
-            # Рассчитываем задержку
+            # Задержка
             if simulated_time > last_time:
                 delay = (simulated_time - last_time) / speed
                 await asyncio.sleep(delay)
             
-            # Публикуем сообщение
+            # Публикация сообщения
             payload_str = json.dumps(payload) if isinstance(payload, dict) else str(payload)
             await client.publish(topic, payload_str)
             

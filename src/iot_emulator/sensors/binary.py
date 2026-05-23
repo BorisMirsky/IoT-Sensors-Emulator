@@ -1,30 +1,22 @@
 import random
 from typing import Optional, Dict, Any
-
 from iot_emulator.sensors.base import BaseSensor
 
-
+# Бинарный датчик (0 или 1). Например: движение, дверь открыта/закрыта, реле.
 class BinarySensor(BaseSensor):
-    """
-    Бинарный датчик (0 или 1).
-    Например: движение, дверь открыта/закрыта, реле.
-    """
-
     def __init__(
         self,
         name: str = "binary",
         initial_value: float = 0.0,
-        noise_std: float = 0.0,  # Бинарные датчики обычно без шума
-        toggle_probability: float = 0.001  # Вероятность смены состояния в секунду
+        noise_std: float = 0.0,              # Бинарные датчики обычно без шума
+        toggle_probability: float = 0.001    # Вероятность смены состояния в секунду
     ):
         super().__init__(name, initial_value, noise_std)
         self.toggle_probability = toggle_probability
 
+
+    # Обновить бинарное состояние. Случайно переключается с вероятностью toggle_probability * delta_time.
     async def update(self, delta_time: float, context: Optional[Dict[str, Any]] = None) -> float:
-        """
-        Обновить бинарное состояние.
-        Случайно переключается с вероятностью toggle_probability * delta_time.
-        """
         dt = min(delta_time, 10.0)
         
         # Вероятность переключения за этот интервал

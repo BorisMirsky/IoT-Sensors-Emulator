@@ -16,10 +16,9 @@ class RuleType(Enum):
 
 @dataclass
 class BehaviorRule:
-    """Одно правило поведения"""
     type: RuleType
-    condition: Optional[Dict[str, Any]]  # условие срабатывания
-    action: Dict[str, Any]  # действие при срабатывании
+    condition: Optional[Dict[str, Any]] 
+    action: Dict[str, Any]  
 
 
 class BehaviorScript:
@@ -63,7 +62,7 @@ class BehaviorScript:
         Оценить все правила и вернуть список действий, которые нужно выполнить.
         
         Args:
-            context: Словарь с текущим состоянием:
+            context: Словарь c текущим состоянием:
                 - simulated_time: текущее симулированное время
                 - sensor_values: {sensor_name: value}
                 - last_command: последняя полученная команда (если есть)
@@ -81,7 +80,6 @@ class BehaviorScript:
         return actions
 
     def _check_condition(self, condition: Optional[Dict[str, Any]], context: Dict[str, Any]) -> bool:
-        """Проверить, выполняется ли условие"""
         if condition is None:
             return True  # правило без условия срабатывает всегда
         
@@ -94,7 +92,6 @@ class BehaviorScript:
                 sensor_name = value.get("sensor")
                 operator = value.get("operator", ">")
                 threshold = value.get("value")
-                
                 sensor_val = context.get("sensor_values", {}).get(sensor_name)
                 if sensor_val is None:
                     return False
@@ -102,7 +99,7 @@ class BehaviorScript:
                 if not self._check_comparison(sensor_val, operator, threshold):
                     return False
             elif key == "command":
-                # Проверка команды (например, {"command": "heater_on"})
+                # Проверка команды, например, {"command": "heater_on"}
                 last_cmd = context.get("last_command")
                 if last_cmd != value:
                     return False
@@ -113,8 +110,8 @@ class BehaviorScript:
         
         return True
 
+    # Проверить временное условие (например: "> 60" или "between 10 and 20")
     def _check_time_condition(self, condition: Any, current_time: float) -> bool:
-        """Проверить временное условие (например: "> 60" или "between 10 and 20")"""
         if isinstance(condition, str):
             # Простое условие: "> 60", "< 100", "= 50"
             for op in [">=", "<=", ">", "<", "==", "="]:
@@ -133,16 +130,17 @@ class BehaviorScript:
                             return current_time == value
                     except ValueError:
                         pass
+
+        # Диапазон: {"between": [10, 20]}            
         elif isinstance(condition, dict) and "between" in condition:
-            # Диапазон: {"between": [10, 20]}
             values = condition["between"]
             if len(values) == 2:
                 return values[0] <= current_time <= values[1]
         
         return False
 
+    # Сравнить значение с порогом
     def _check_comparison(self, value: float, operator: str, threshold: float) -> bool:
-        """Сравнить значение с порогом"""
         if operator == ">":
             return value > threshold
         elif operator == "<":
@@ -155,9 +153,8 @@ class BehaviorScript:
             return value == threshold
         return False
 
-
+# Загрузить сценарий поведения из JSON файла
 def load_behavior_from_file(file_path: str) -> Optional[BehaviorScript]:
-    """Загрузить сценарий поведения из JSON файла"""
     try:
         with open(file_path, 'r', encoding='utf-8') as f:
             data = json.load(f)

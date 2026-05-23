@@ -3,14 +3,10 @@ import time
 from typing import Optional
 
 
+# Глобальный контроллер симулированного времени.
+# Позволяет ускорять/замедлять время относительно реального.
+# Пример: speed_factor = 60.0 означает, что 1 реальная секунда = 1 симулированная минута.
 class SimulatedTime:
-    """
-    Глобальный контроллер симулированного времени.
-    Позволяет ускорять/замедлять время относительно реального.
-    
-    Пример: speed_factor = 60.0 означает, что 1 реальная секунда = 1 симулированная минута.
-    """
-
     _instance: Optional['SimulatedTime'] = None
     _initialized: bool = False
 
@@ -30,8 +26,8 @@ class SimulatedTime:
         self._is_running: bool = False
         self._paused_simulated_time: float = 0.0
 
+    # Запустить симуляцию времени с указанным коэффициентом ускорения
     def start(self, speed_factor: float = 1.0) -> None:
-        """Запустить симуляцию времени с указанным коэффициентом ускорения"""
         self._speed_factor = speed_factor
         self._start_real_time = time.monotonic()
         
@@ -44,39 +40,37 @@ class SimulatedTime:
         
         self._is_running = True
 
+    # Приостановить симуляцию времени
     def pause(self) -> None:
-        """Приостановить симуляцию времени"""
         if self._is_running:
             self._paused_simulated_time = self.get_current_time()
             self._is_running = False
-
+    
+    # Возобновить
     def resume(self) -> None:
-        """Возобновить симуляцию времени"""
         if not self._is_running:
             self._start_real_time = time.monotonic()
             self._start_simulated_time = self._paused_simulated_time
             self._is_running = True
 
+    # Остановить симуляцию и сбросить время
     def stop(self) -> None:
-        """Остановить симуляцию и сбросить время"""
         self._is_running = False
         self._start_real_time = 0.0
         self._start_simulated_time = 0.0
         self._paused_simulated_time = 0.0
 
+    # Получить текущее симулированное время (в секундах).
+    # Если симуляция не запущена — возвращает последнее известное время.
     def get_current_time(self) -> float:
-        """
-        Получить текущее симулированное время (в секундах).
-        Если симуляция не запущена — возвращает последнее известное время.
-        """
         if not self._is_running:
             return self._paused_simulated_time
         
         real_elapsed = time.monotonic() - self._start_real_time
         return self._start_simulated_time + (real_elapsed * self._speed_factor)
 
+    # Изменить коэффициент ускорения на лету
     def set_speed_factor(self, speed_factor: float) -> None:
-        """Изменить коэффициент ускорения на лету"""
         if speed_factor <= 0:
             raise ValueError("Speed factor must be positive")
         
@@ -89,28 +83,20 @@ class SimulatedTime:
         self._speed_factor = speed_factor
         self._is_running = True
 
+    # текущий коэффициент ускорения
     def get_speed_factor(self) -> float:
-        """Получить текущий коэффициент ускорения"""
         return self._speed_factor
 
     def is_running(self) -> bool:
-        """Запущена ли симуляция"""
         return self._is_running
 
-
+#  Асинхронный sleep, работающий в симулированном времени.
 class SimulatedSleep:
-    """
-    Асинхронный sleep, работающий в симулированном времени.
-    Использование: await simulated_sleep(duration_seconds, speed_factor)
-    """
-
     def __init__(self, simulated_time: SimulatedTime):
         self._simulated_time = simulated_time
 
+    # Усыпить корутину на duration секунд симулированного времени.
     async def __call__(self, duration: float) -> None:
-        """
-        Усыпить корутину на duration секунд симулированного времени.
-        """
         if duration <= 0:
             return
         
@@ -118,7 +104,7 @@ class SimulatedSleep:
         target_simulated = start_simulated + duration
         
         while self._simulated_time.get_current_time() < target_simulated:
-            # Вычисляем, сколько реального времени осталось ждать
+            # сколько реального времени осталось ждать
             remaining_simulated = target_simulated - self._simulated_time.get_current_time()
             if remaining_simulated <= 0:
                 break
@@ -134,12 +120,12 @@ class SimulatedSleep:
 # Глобальный синглтон для удобного импорта
 _simulated_time = SimulatedTime()
 
+# Получить глобальный экземпляр SimulatedTime
 def get_simulated_time() -> SimulatedTime:
-    """Получить глобальный экземпляр SimulatedTime"""
     return _simulated_time
 
+# Получить функцию для сна в симулированном времени
 def get_simulated_sleep():
-    """Получить функцию для сна в симулированном времени"""
     return SimulatedSleep(_simulated_time)
 
 

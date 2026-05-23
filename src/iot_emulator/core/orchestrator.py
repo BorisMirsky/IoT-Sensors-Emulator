@@ -2,20 +2,17 @@ import asyncio
 import logging
 import signal
 from typing import Dict, List, Optional, Set
-
 from iot_emulator.core.device import Device
 from iot_emulator.utils.config_loader import Config, DeviceConfig
 from iot_emulator.logging import TelemetryLogger
-
+from iot_emulator.time_simulation import get_simulated_time
+from iot_emulator.mqtt import MQTTClient
 
 logger = logging.getLogger(__name__)
 
 
+#  Оркестратор устройств — управляет запуском, остановкой, graceful shutdown и сбором статистики.
 class DeviceOrchestrator:
-    """
-    Оркестратор устройств — управляет запуском, остановкой,
-    graceful shutdown и сбором статистики.
-    """
 
     def __init__(self):
         self._devices: Dict[str, Device] = {}
@@ -24,19 +21,14 @@ class DeviceOrchestrator:
         self._shutdown_started = False
         self._telemetry_logger: Optional[TelemetryLogger] = None
         
-
+    # Загрузить конфигурацию без запуска устройства
     def load_config(self, config: Config) -> None:
-        """Загрузить конфигурацию (но не запускать устройства)"""
         self._config = config
 
-
+    # Запустить все устройства из конфигурации
     async def start_all(self, speed_factor: float = 1.0) -> None:
-        """Запустить все устройства из конфигурации"""
         if not self._config:
             raise RuntimeError("No config loaded. Call load_config() first.")
-        
-        from iot_emulator.time_simulation import get_simulated_time
-        from iot_emulator.mqtt import MQTTClient
         
         # Запускаем глобальное время
         st = get_simulated_time()
@@ -64,20 +56,17 @@ class DeviceOrchestrator:
             await mqtt_client.connect()
             
             # Создаём устройство
-            #device = Device(device_config, mqtt_client=mqtt_client)
-                        # Создаём устройство
             device = Device(device_config, mqtt_client=mqtt_client, telemetry_logger=self._telemetry_logger)
             self._devices[device_config.id] = device
             device.start()
             logger.info(f"Device {device_config.id} started")
         
         # Небольшая пауза, чтобы устройства успели запуститься
-        await asyncio.sleep(0.1)
-
+        await asyncio.sleep(1)    # 0.1 / 0.5 ?
+ 
     async def stop_device(self, device_id: str, graceful: bool = True) -> bool:
         """
-        Остановить конкретное устройство.
-        
+        Остановить конкретное устройство.      
         Args:
             device_id: ID устройства
             graceful: Если True — ждём завершения текущей итерации,
@@ -105,7 +94,6 @@ class DeviceOrchestrator:
     async def stop_all(self, graceful: bool = True) -> None:
         """
         Остановить все устройства.
-        
         Args:
             graceful: Если True — останавливаем все устройства параллельно с ожиданием,
                       если False — отменяем все задачи принудительно
@@ -133,7 +121,7 @@ class DeviceOrchestrator:
                     device._task.cancel()
             
             # Даём время на отмену
-            await asyncio.sleep(0.5)
+            await asyncio.sleep(1)
         
         # Останавливаем логгер телеметрии
         if self._telemetry_logger:
@@ -142,7 +130,6 @@ class DeviceOrchestrator:
         self._devices.clear()
         
         # Останавливаем симуляцию времени
-        from iot_emulator.time_simulation import get_simulated_time
         st = get_simulated_time()
         st.stop()
         
@@ -150,23 +137,19 @@ class DeviceOrchestrator:
         self._shutdown_started = False
 
     def get_devices_status(self) -> List[dict]:
-        """Получить статус всех устройств"""
         return [device.get_stats() for device in self._devices.values()]
 
     def get_device_stats(self, device_id: str) -> Optional[dict]:
-        """Получить статистику конкретного устройства"""
         device = self._devices.get(device_id)
         if device:
             return device.get_stats()
         return None
 
     def get_active_device_ids(self) -> Set[str]:
-        """Получить множество ID активных устройств"""
         return set(self._devices.keys())
 
+    # Разобрать адрес брокера 'host:port' -> (host, port)
     def _parse_broker_address(self, address: str) -> tuple:
-
-        """Разобрать адрес брокера 'host:port' -> (host, port)"""
         parts = address.split(':')
         host = parts[0]
         port = int(parts[1]) if len(parts) > 1 else 1883
@@ -174,5 +157,4 @@ class DeviceOrchestrator:
     
 
     def get_telemetry_logger(self) -> Optional[TelemetryLogger]:
-        """Получить логгер телеметрии"""
         return self._telemetry_logger

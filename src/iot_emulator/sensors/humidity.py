@@ -1,14 +1,10 @@
 from typing import Optional, Dict, Any
-
 from iot_emulator.sensors.base import BaseSensor
 
 
-class HumiditySensor(BaseSensor):
-    """
-    Датчик влажности.
-    Может быть коррелирован с температурой.
-    """
 
+# Датчик влажности. Может быть коррелирован с температурой.
+class HumiditySensor(BaseSensor):
     def __init__(
         self,
         name: str = "humidity",
@@ -23,17 +19,14 @@ class HumiditySensor(BaseSensor):
         self.min_value = min_value
         self.max_value = max_value
 
+
+    # Обновить влажность. Если есть корреляция с температурой — вычисляем на основе неё.
     async def update(self, delta_time: float, context: Optional[Dict[str, Any]] = None) -> float:
-        """
-        Обновить влажность.
-        Если есть корреляция с температурой — вычисляем на основе неё.
-        """
         # Если есть корреляция и в контексте есть значение температуры
         if self.correlation_with and context:
             temp_value = context.get(self.correlation_with)
             if temp_value is not None:
-                # Простая корреляция: при повышении температуры на 1°C, 
-                # влажность может немного меняться (упрощённая модель)
+                # Простая корреляция: при повышении температуры на 1°C влажность может немного меняться (упрощённая модель)
                 # Базовая влажность 55% при 22°C
                 base_humidity = 55.0 - (temp_value - 22.0) * 0.5
                 self._value = base_humidity
